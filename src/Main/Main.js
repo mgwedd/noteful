@@ -8,18 +8,17 @@ export default function Sidebar( props ) {
         <>
             <Switch>
                 <Route
+                    exact
                     path='/'
-                    component={ NoteList }>
+                    render={ ( routeProps ) => <NoteList { ...routeProps } {...props} /> }>
                     </Route>
                 <Route
                     path='/folder/:folderId'
-                    component={ NoteList }>
-                    {/* NoteList should display only notes that match the folderId— that are contained by it */}
+                    render={ ( routeProps ) => <NoteList {...routeProps} {...props}  />  }>
                 </Route>
                 <Route
                     path='/note/:noteId'
-                    component={ Note }>
-                    {/* NoteList should display only notes that match the folderId— that are contained by it */}
+                    component={ ( routeProps ) => <Note { ...routeProps} {...props} />  }>
                 </Route>
             </Switch>
         </>

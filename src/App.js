@@ -8,8 +8,8 @@ import './App.css';
 export default class App extends Component {
 
   state= {
-    notes: [], 
-    folders: [], 
+    selectedNote: null, 
+    selectedFolder: null, 
     data: sampleData
   }
 
@@ -26,11 +26,21 @@ export default class App extends Component {
   }
 
   render() {
+    const { data, selectedFolder, selectedNote } = this.state;
     return (
       <>
         <Header />
-        <Sidebar />
-        <Main />
+        <Sidebar 
+          data={ data }
+          selectedFolder={ selectedFolder }
+          selectedNote={ selectedNote }
+          handleAddFolder={ this.handleAddFolder } />
+        <Main 
+          data={ data }
+          selectedFolder={ selectedFolder }
+          selectedNote={ selectedNote }
+          handleAddNote={ this.handleAddNote }
+          handleDeleteNote={ this.handleDeleteNote } />
       </>
      );
   }

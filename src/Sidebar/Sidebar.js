@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import BackButton from './BackButton/BackButton'
 import FolderList from './Folders/FolderList/FolderList';
 
 export default function Sidebar( props ) {
+    const { data, selectedFolder, selectedNote, handleAddFolder } = props;
     return (
         <>
             <Switch>
@@ -18,7 +18,17 @@ export default function Sidebar( props ) {
                 </Route>
                 <Route
                     path='/note/:noteId'
-                    component={ BackButton }>
+                    render={ () => {
+                        return (
+                            <>
+                                <button
+                                    className="back_button">
+                                    Back
+                                </button>
+                            </>
+                       );
+                    }}
+                >
                 </Route>
             </Switch>
         </>

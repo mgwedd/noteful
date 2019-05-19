@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 import { format } from 'date-fns'
 
 export default function Note( props ) {
-    const { note, path } = props;
+
+    // TODO: The way Location is being passed down is probably not idiomatic, and probably doesn't work. 
+    // ask Nathaniel how this works. We want to return one of two things based on which route location we're at.
+    const { note, location, handleDeleteNote } = props;
     const standardNote = (
             <div className="note_container">
                 <div className="note_title-and-date-wrapper">
@@ -20,15 +23,17 @@ export default function Note( props ) {
                     </span>
                 </div>
                 <div classname="note_delete-button-wrapper">
-                    <button className="note_delete-button">
+                    <button 
+                        className="note_delete-button"
+                        onClick={ event => handleDeleteNote(event) }>
                         Delete
                     </button>
                 </div>
             </div>
     );  
-    // if the path isn't targeting a specific note, render a standard note overview; 
+    // if the location path isn't targeting a specific note, render a standard note overview; 
     // otherwise, render that overview with a content box below it
-    if (path !== `/note/${note.id}`) 
+    if (location !== `/note/${note.id}`) 
         return { standardNote };
     else {     
         return (
