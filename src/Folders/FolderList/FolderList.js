@@ -6,7 +6,7 @@ export default function FolderList( props ) {
     const folders = data.folders.map(( folder ) => {
         return <Folder 
                     folder={ folder } 
-                    key={folder.id}
+                    key={ folder.id }
                     { ...props }
                 />
     });

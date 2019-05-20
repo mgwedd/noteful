@@ -8,18 +8,9 @@ export default function Sidebar( props ) {
         <>
             <Switch>
                 <Route
-                    path='/'
-                    render={ ( routeProps ) => <FolderList {...routeProps} { ...props }/> }>
-                </Route>
-                <Route
-                    path='/folder/:folderId'
-                    render={ ( routeProps ) => <FolderList {...routeProps} { ...props }/> }>
-                </Route>
-                <Route
-                    path='/note/:noteId'
+                    path='/note/'
                     render={ ({ routeProps }) => {
                         return <Button 
-                                    destination={ '' }
                                     className="back_button"
                                     name="Go Back"
                                     onClick={ () => routeProps.history.goBack() } />
@@ -27,6 +18,9 @@ export default function Sidebar( props ) {
                     }
                 >
                 </Route>
+                <Route 
+                    render={ ( routeProps ) => (<FolderList { ...routeProps } { ...props }  />)  }
+                />
             </Switch>
         </>
     );

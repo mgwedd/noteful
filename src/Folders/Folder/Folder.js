@@ -7,7 +7,7 @@ export default function Folder( props ) {
         <>
             <div className="folder">
                 <NavLink 
-                    to={ `Folder/:${folder.id}` }>
+                    to={ `/folder/${ folder.id }` }>
                     <h2 className="folder_name">{ folder.name }</h2>
                 </NavLink>
             </div>
