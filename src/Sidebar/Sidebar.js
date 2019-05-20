@@ -3,18 +3,16 @@ import { Route, Switch } from 'react-router-dom';
 import FolderList from './Folders/FolderList/FolderList';
 
 export default function Sidebar( props ) {
-    const { data, selectedFolder, selectedNote, handleAddFolder } = props;
     return (
         <>
             <Switch>
                 <Route
                     path='/'
-                    component={ FolderList }>
+                    render={ ( routeProps ) => <FolderList {...routeProps} { ...props }/> }>
                 </Route>
                 <Route
                     path='/folder/:folderId'
-                    component={ FolderList }> 
-                    {/* Folder that's selected should be highlighted in the list. use helper fn*/}
+                    render={ ( routeProps ) => <FolderList {...routeProps} { ...props }/> }>
                 </Route>
                 <Route
                     path='/note/:noteId'

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { format } from 'date-fns'
+import { format } from 'date-fns';
+import Button from '../../Button/Button';
 
 export default function Note( props ) {
 
@@ -8,7 +9,7 @@ export default function Note( props ) {
     // ask Nathaniel how this works. We want to return one of two things based on which route location we're at.
     const { note, location, handleDeleteNote } = props;
     const standardNote = (
-            <div className="note_container">
+            <li className="note_container_li">
                 <div className="note_title-and-date-wrapper">
                     <Link
                         to={`Note/${note.id}`}>
@@ -16,20 +17,22 @@ export default function Note( props ) {
                             { note.title }
                         </h2>
                     </Link>
-                    <span className="note_modified"> 
+                    <span className="note_modified_date"> 
                         Modified 
                         {' '}
                         {format(note.modified, 'Do MMM YYYY')} 
                     </span>
                 </div>
                 <div classname="note_delete-button-wrapper">
-                    <button 
-                        className="note_delete-button"
-                        onClick={ event => handleDeleteNote(event) }>
+                    <Button 
+                        name='Delete Note'
+                        destination={ null } 
+                        // QUESTION: Is it ok to pass null to a <Link/> so that handleDeleteNote manages its functionality ?
+                        onClick={ handleDeleteNote }>
                         Delete
-                    </button>
+                    </Button>
                 </div>
-            </div>
+            </li>
     );  
     // if the location path isn't targeting a specific note, render a standard note overview; 
     // otherwise, render that overview with a content box below it

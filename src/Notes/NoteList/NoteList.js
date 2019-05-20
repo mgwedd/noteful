@@ -4,14 +4,24 @@ import { getNotesForFolder } from '../../helper-functions';
 
 export default function NoteList( props ) {
     const { data, selectedFolder } = props;
-    const notes = [];
+    const notesToRender = [];
+
     if ( selectedFolder )
-        notes.push(getNotesForFolder( data.notes, selectedFolder ));
+        notesToRender.push(getNotesForFolder( data.notes, selectedFolder ));
     else
-        notes.push(data.notes);
+        notesToRender.push(data.notes);
+        
+    const notes = notesToRender.map(( note ) => {
+        return <Note 
+                { ...props } 
+                key={ note.id }/>
+    });
+    
     return (
         <>
-            { notes.map( ( note ) => <Note { ...props } /> ) }
+            <ul>
+                { notes }
+            </ul>
         </>
     );
 }
