@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import Button from '../../Button/Button';
+import './Note.css'
 
 export default function Note( props ) {
 
@@ -25,7 +26,8 @@ export default function Note( props ) {
                 </div>
                 <div classname="note_delete-button-wrapper">
                     <Button 
-                        name='Delete Note'
+                        name="Delete Note"
+                        className="delete_note_button"
                         destination={ null } 
                         // QUESTION: Is it ok to pass null to a <Link/> so that handleDeleteNote manages its functionality ?
                         onClick={ handleDeleteNote }>

@@ -26,19 +26,14 @@ export default class App extends Component {
   }
 
   render() {
-    const { data, selectedFolder, selectedNote } = this.state;
     return (
       <>
         <Header />
         <Sidebar 
-          data={ data }
-          selectedFolder={ selectedFolder }
-          selectedNote={ selectedNote }
+          { ...this.state }
           handleAddFolder={ this.handleAddFolder } />
         <Main 
-          data={ data }
-          selectedFolder={ selectedFolder }
-          selectedNote={ selectedNote }
+          { ...this.state }
           handleAddNote={ this.handleAddNote }
           handleDeleteNote={ this.handleDeleteNote } />
       </>

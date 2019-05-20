@@ -7,8 +7,7 @@ export default function LinkButton( props ) {
         <>
             <Link 
                 to={ destination }
-                className={ `link-button_${ name }` }
-                onClick={event => buttonHandler(event) }>
+                onClick={ event => buttonHandler(event) }>
             { name }
             </Link>
         </>

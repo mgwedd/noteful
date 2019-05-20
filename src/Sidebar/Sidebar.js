@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import FolderList from './Folders/FolderList/FolderList';
+import Button from '../Button/Button';
+import './Sidebar.css';
 
 export default function Sidebar( props ) {
     return (
@@ -16,20 +18,17 @@ export default function Sidebar( props ) {
                 </Route>
                 <Route
                     path='/note/:noteId'
-                    render={ () => {
-                        return (
-                            <>
-                                <button
-                                    className="back_button">
-                                    Back
-                                </button>
-                            </>
-                       );
-                    }}
+                    render={ ({ routeProps }) => {
+                        return <Button 
+                                    destination={ null }
+                                    className="back_button"
+                                    name="Go Back"
+                                    onClick={ () => routeProps.history.goBack() } />
+                        }
+                    }
                 >
                 </Route>
             </Switch>
         </>
     );
 }
-       

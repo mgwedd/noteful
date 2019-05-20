@@ -1,19 +1,29 @@
 .note_container_li {
+    list-style: none;
+    display: flex;
+    padding: 20px;
+}
 
+.note_title-and-date-wrapper {
+    display: flex;
+    flex-direction: column;
 }
 
 .note_title {
-
-}
-
-.note_title-and-date-wrappe {
-
+    font-size: 40px;
 }
 
 .note_modified_date {
-
+    font-size: 20px;
 }
 
 .note_content {
+    font-size: 14px;
+}
 
+.delete_note_button {
+    border: 2px solid black;
+    font-size: 16px;
+    text-align: center;
+    margin: 0 auto;
 }
