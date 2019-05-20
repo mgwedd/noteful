@@ -1,4 +1,4 @@
-import { React, Component } from 'react';
+import React, { Component } from 'react';
 import Header from './Header/Header';
 import Sidebar from './Sidebar/Sidebar';
 import Main from './Main/Main';
@@ -8,8 +8,8 @@ import './App.css';
 export default class App extends Component {
 
   state= {
-    selectedNote: null, 
-    selectedFolder: null, 
+    selectedNote: false, 
+    selectedFolder: false, 
     data: sampleData
   }
 
@@ -29,13 +29,15 @@ export default class App extends Component {
     return (
       <>
         <Header />
-        <Sidebar 
-          { ...this.state }
-          handleAddFolder={ this.handleAddFolder } />
-        <Main 
-          { ...this.state }
-          handleAddNote={ this.handleAddNote }
-          handleDeleteNote={ this.handleDeleteNote } />
+        <div className="sidebar_and_main_container">
+          <Sidebar 
+            { ...this.state }
+            handleAddFolder={ this.handleAddFolder } />
+          <Main 
+            { ...this.state }
+            handleAddNote={ this.handleAddNote }
+            handleDeleteNote={ this.handleDeleteNote } />
+        </div>
       </>
      );
   }

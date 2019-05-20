@@ -1,5 +1,5 @@
 import React from 'react';
-import Folder from './Folders/Folder/Folder';
+import Folder from '../Folder/Folder';
 
 export default function FolderList( props ) {
     const { data } = props;

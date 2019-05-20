@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import FolderList from './Folders/FolderList/FolderList';
+import FolderList from '../Folders/FolderList/FolderList';
 import Button from '../Button/Button';
 import './Sidebar.css';
-
 export default function Sidebar( props ) {
     return (
         <>
@@ -20,7 +19,7 @@ export default function Sidebar( props ) {
                     path='/note/:noteId'
                     render={ ({ routeProps }) => {
                         return <Button 
-                                    destination={ null }
+                                    destination={ '' }
                                     className="back_button"
                                     name="Go Back"
                                     onClick={ () => routeProps.history.goBack() } />

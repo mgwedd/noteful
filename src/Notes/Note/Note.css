@@ -1,7 +1,10 @@
 .note_container_li {
     list-style: none;
     display: flex;
+    justify-content: space-between;
     padding: 20px;
+    border: 2px solid black;
+    margin: 10px;
 }
 
 .note_title-and-date-wrapper {
@@ -10,7 +13,7 @@
 }
 
 .note_title {
-    font-size: 40px;
+    /* font-size: 40px; */
 }
 
 .note_modified_date {
@@ -26,4 +29,5 @@
     font-size: 16px;
     text-align: center;
     margin: 0 auto;
+    border: 2px solid black;
 }
