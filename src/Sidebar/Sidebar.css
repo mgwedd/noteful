@@ -1,0 +1,12 @@
+.back_button {
+    display: flex;
+    min-width: 200px;
+}
+
+.back_button_wrapper {
+    border: 2px solid black;
+    padding: 25px;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-left: 10px;
+}

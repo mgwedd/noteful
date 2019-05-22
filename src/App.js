@@ -30,13 +30,17 @@ export default class App extends Component {
       <>
         <Header />
         <div className="sidebar_and_main_container">
-          <Sidebar 
-            { ...this.state }
-            handleAddFolder={ this.handleAddFolder } />
-          <Main 
-            { ...this.state }
-            handleAddNote={ this.handleAddNote }
-            handleDeleteNote={ this.handleDeleteNote } />
+          <div className="sidebar_container">
+            <Sidebar 
+              { ...this.state }
+              handleAddFolder={ this.handleAddFolder } />
+          </div>
+          <div className="main_container">
+            <Main 
+              { ...this.state }
+              handleAddNote={ this.handleAddNote }
+              handleDeleteNote={ this.handleDeleteNote } />
+          </div>
         </div>
       </>
      );

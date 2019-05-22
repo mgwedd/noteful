@@ -7,9 +7,9 @@ export default function NoteList( props ) {
     const folderId = match.params.folderId;
     let notesToRender;
     if ( folderId )
-        notesToRender = (getNotesForFolder( data.notes, folderId ));
+        notesToRender = ( getNotesForFolder( data.notes, folderId ) );
     else
-        notesToRender = (data.notes);
+        notesToRender = ( data.notes );
 
     const notes = notesToRender.map( ( note, index ) => {
         return <Note 
@@ -20,11 +20,9 @@ export default function NoteList( props ) {
     
     return (
         <>
-            <div className="notelist_container">
-                <ul>
-                    { notes }
-                </ul>
-            </div>
+            <ul>
+                { notes }
+            </ul>
         </>
     );
 }

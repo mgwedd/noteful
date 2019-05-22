@@ -1,8 +1,9 @@
-.App {
-  text-align: center;
-}
-
 .sidebar_and_main_container {
   display: flex;
-  width: 100%;
+  flex: 2 1;
 }
+
+.main_contaienr {
+  width: 100%;
+  display: flex;
+}git

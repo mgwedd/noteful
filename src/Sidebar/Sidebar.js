@@ -10,10 +10,14 @@ export default function Sidebar( props ) {
                 <Route
                     path='/note/'
                     render={ ({ routeProps }) => {
-                        return <Button 
-                                    className="back_button"
-                                    name="Go Back"
-                                    onClick={ () => routeProps.history.goBack() } />
+                        return (
+                                <div className="back_button_wrapper">
+                                    <Button 
+                                        destination=""
+                                        name="Go Back"
+                                        className="back_button"
+                                        { ... routeProps }/>
+                                </div>);
                         }
                     }
                 >
