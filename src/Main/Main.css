@@ -1,4 +1,49 @@
-.main_contaienr {
-    width: 100%;
-    display: flex;
-  }
+ul {
+  list-style: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  list-style-position:inside;
+}
+
+.note_container_li {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  margin: 10px;
+  border: 2px solid black;
+}
+
+.note_title-and-date-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.note_modified_date {
+  font-size: 20px;
+}
+
+.note_content_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.note_content {
+  padding: 25px;
+}
+
+.note_delete-button-wrapper {
+  display: flex;
+  align-items: flex-end;
+}
+
+.delete_note_button {
+  border: 2px solid black;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 auto;
+  padding: 15px;
+}

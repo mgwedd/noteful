@@ -13,7 +13,7 @@ export default function FolderList( props ) {
 
     return (
         <>
-            <ul>
+            <ul className="folder_list">
                 { folders }
             </ul>
         </>

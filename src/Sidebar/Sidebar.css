@@ -1,12 +1,29 @@
-.back_button {
-    display: flex;
-    min-width: 200px;
-}
-
 .back_button_wrapper {
     border: 2px solid black;
     padding: 25px;
     margin: 0 auto;
     margin-top: 10px;
     margin-left: 10px;
+}
+
+.back_button {
+    display: flex;
+    width: 100%;
+}
+
+.folder_list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    list-style-type: none;
+    list-style-position:inside;
+    padding: 10px;
+}
+
+.folder {
+    display: flex;
+    justify-content: center;
+    border: 2px solid black;
+    margin: 5px;
+    width: 200px;
 }

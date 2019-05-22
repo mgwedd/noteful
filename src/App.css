@@ -3,7 +3,11 @@
   flex: 2 1;
 }
 
+.sidebar_container {
+  border-right: 2px solid black;
+}
+
 .main_contaienr {
   width: 100%;
   display: flex;
-}git
+}
