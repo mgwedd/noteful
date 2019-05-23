@@ -4,16 +4,13 @@ import NoteList from '../Notes/NoteList/NoteList';
 import Note from '../Notes/Note/Note';
 import './Main.css';
 
-// PROBLEM WITH SINGLE NOTE ROUTE Do data fetching from data source here being given a noteId. THe problem is on the note route, 
-// where no note object i sbeing passed form notelist. 
-
 export default function Main( props ) {
     return (
         <>
             <Switch>
                 <Route
                     path='/note/:noteId'
-                    render={ ( routeProps ) => (<Note { ...routeProps} {...props} key="single_note" />)  }>
+                    render={ ( routeProps ) => (<Note { ...routeProps} {...props} key={ routeProps.match.params.noteId } />)  }>
                 </Route>
                 <Route
                     path='/folder/:folderId'

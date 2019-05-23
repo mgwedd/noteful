@@ -11,8 +11,8 @@ ul {
   list-style: none;
   display: flex;
   justify-content: space-between;
-  padding: 20px;
-  margin: 10px;
+  padding: 15px;
+  margin: 15px;
   border: 2px solid black;
 }
 
@@ -47,3 +47,15 @@ ul {
   margin: 0 auto;
   padding: 15px;
 }
+
+/*  HOVER STATES */
+.note_title:hover {
+  background-color: black;
+  color: white;
+}
+
+/* Try to get the whole note inverting colors. but that requires affecting children on hover of parent. */
+/* .note_container_li:hover .note_modified_date:not(:hover) .delete_note_button:not(:hover) {
+  background-color: black;
+  color: white;
+} */
