@@ -49,13 +49,15 @@ ul {
 }
 
 /*  HOVER STATES */
+.note_container_li:hover {
+  box-shadow: -8px -8px 0px 0px black;
+}
 .note_title:hover {
   background-color: black;
   color: white;
 }
 
-/* Try to get the whole note inverting colors. but that requires affecting children on hover of parent. */
-/* .note_container_li:hover .note_modified_date:not(:hover) .delete_note_button:not(:hover) {
+.delete_note_button:hover {
   background-color: black;
   color: white;
-} */
+}

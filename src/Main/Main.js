@@ -10,15 +10,15 @@ export default function Main( props ) {
             <Switch>
                 <Route
                     path='/note/:noteId'
-                    render={ ( routeProps ) => (<Note { ...routeProps} {...props} key={ routeProps.match.params.noteId } />)  }>
+                    component={ Note }>
                 </Route>
                 <Route
                     path='/folder/:folderId'
-                    children={ ( routeProps ) => (<NoteList { ...routeProps } {...props} />) }>
+                    component={ NoteList }>
                 </Route>
                 <Route
                     path='/'
-                    children={ ( routeProps ) => (<NoteList { ...routeProps } {...props} />) }>
+                    component={ NoteList }>
                 </Route>
             </Switch>
         </>

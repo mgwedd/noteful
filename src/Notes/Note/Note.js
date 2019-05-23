@@ -3,12 +3,10 @@ import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import Button from '../../Button/Button';
 import { findNote } from '../../helper-functions';
+import { NotefulContext } from '../../NotefulContext';
 import './Note.css'
 
-// PROBLEM WITH SINGLE NOTE ROUTE Do data fetching from data source here being given a noteId. THe problem is on the note route, 
-// where no note object i sbeing passed form notelist. 
-
-export default function Note( props ) {
+function Note( props ) {
 
     const { note, handleDeleteNote, match, data } = props;
     // if the location path isn't targeting a specific note, render a standard note overview; 
@@ -58,4 +56,14 @@ export default function Note( props ) {
             </>
         );  
     }
+}
+
+export default function NoteWithContext( props ) {
+    return (
+        <>
+            <NotefulContext.Consumer />
+                { ( contextData ) => <Note { ...contextData } />}
+            <NotefulContext.Consumer />
+        </>
+    );
 }
