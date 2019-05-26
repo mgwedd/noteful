@@ -1,49 +1,88 @@
 import React, { Component } from 'react';
 import Header from './Header/Header';
-import Sidebar from './Sidebar/Sidebar';
+import SidebarWithContext from './Sidebar/Sidebar';
 import Main from './Main/Main';
 import sampleData from './sampleData';
 import { NotefulContext } from './NotefulContext';
+import config from './config';
 import './App.css';
 
 export default class App extends Component {
 
-  state= {
-    data: sampleData
+  state = {
+    notes: sampleData.notes,
+    folders: sampleData.folders,
   }
 
-  handleDeleteNote = ( noteId, folderId ) => {
-    // delete note from this.state.notes.
+  handleDeleteNote = ( noteId ) => {
+    this.setState({
+      notes: this.state.notes.filter(note => note.id !== noteId)
+    });
   }
 
-  handleAddNote = ( noteId, folderId) => {
-    // add note to this.state.notes.
+  handleAddNote = ( note ) => {
+    this.setState({
+      notes: [
+        ...this.state.notes, 
+        note
+      ]
+    });
   }
 
-  handleAddFolder = ( formSubmission ) => {
-    // add folder to this.state.folders.
+  handleAddFolder = ( folder ) => {
+    this.setState({
+      notes: [
+        ...this.state.folders, 
+        folder
+      ]
+    });
   }
+
+  // componentDidMount() {
+  //   Promise.all([
+  //     fetch(`${config.API_ENDPOINT}/notes`),
+  //     fetch(`${config.API_ENDPOINT}/folders`)
+  //   ])
+  //   .then(([notesRes, foldersRes]) => {
+  //     if (!notesRes.ok)
+  //       return notesRes.json().then(event => Promise.reject(event))
+  //     if (!foldersRes.ok)
+  //       return foldersRes.json().then(event => Promise.reject(event))
+  //       return Promise.all([
+  //         notesRes.json(),
+  //         foldersRes.json(),
+  //       ])
+  //     })
+  //     .then(([notes, folders]) => {
+  //       this.setState({ notes, folders })
+  //     })
+  //     .catch(error => {
+  //       console.error({ error })
+  //     });
+  // }
 
   render() {
     const contextValue = {
-      data: this.state.data, 
+      notes: this.state.notes, 
+      folders: this.state.folders,
       handleDeleteNote: this.handleDeleteNote, 
       handleAddNote: this.handleAddNote, 
       handleAddFolder: this.handleAddFolder,
-    }
+    };
+
     return (
       <>
-      <Header />
-        <NotefulContext.Provider value={ contextValue } />
+        <Header />
+        <NotefulContext.Provider value={ contextValue }>
           <div className="sidebar_and_main_container">
             <div className="sidebar_container">
-              <Sidebar />
+              <SidebarWithContext />
             </div>
             <div className="main_container">
               <Main />
             </div>
           </div>
-        <NotefulContext.Provider />
+        </NotefulContext.Provider>
       </>
      );
   }

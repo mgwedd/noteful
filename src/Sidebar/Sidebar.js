@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import FolderList from '../Folders/FolderList/FolderList';
 import Button from '../Button/Button';
 import './Sidebar.css';
+
 export default function Sidebar( props ) {
     return (
         <>
@@ -16,14 +17,15 @@ export default function Sidebar( props ) {
                                         destination=""
                                         name="Go Back"
                                         className="back_button"
-                                        { ... routeProps }/>
-                                </div>);
+                                        { ... routeProps } />
+                                </div>
+                            );
                         }
                     }
                 >
                 </Route>
                 <Route 
-                    render={ ( routeProps ) => (<FolderList { ...routeProps } { ...props }  />)  }
+                    component={ FolderList }
                 />
             </Switch>
         </>

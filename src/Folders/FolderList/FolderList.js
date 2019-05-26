@@ -1,21 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Folder from '../Folder/Folder';
+import { NotefulContext } from '../../NotefulContext';
 
-export default function FolderList( props ) {
-    const { data } = props;
-    const folders = data.folders.map(( folder ) => {
-        return <Folder 
-                    folder={ folder } 
-                    key={ folder.id }
-                    { ...props }
-                />
-    });
+export default class FolderList extends Component {
+    
+    static contextType = NotefulContext;
 
-    return (
-        <>
-            <ul className="folder_list">
-                { folders }
-            </ul>
-        </>
-    );
+    render () {
+        const { folders=['noFoldersFromContext'] } = this.context;
+        const folderList = folders.map(( folder, index ) => {
+            return <Folder 
+                        folder={ folder }
+                        key={ index } />
+        });
+        return (
+            <>
+                <ul className="folder_list">
+                    { folderList }
+                </ul>
+            </>
+        );
+    }
+
 }
+
