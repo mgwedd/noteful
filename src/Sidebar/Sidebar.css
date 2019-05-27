@@ -5,16 +5,17 @@
 .back_button {
     display: flex;
     justify-content: center;
+    text-align: center;
+    cursor: pointer;
     font-weight: bold;
     font-size: 20px;
     border: 2px solid black;
     padding: 10px;
-    padding-top: 20px;
     margin: 5px;
     width: 200px;
-    height: 35px;
-    text-align: center;
+    height: 60px;
 }
+
 .back_button:hover {
     background-color: black;
     color: white;

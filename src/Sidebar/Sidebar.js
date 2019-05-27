@@ -1,33 +1,42 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import FolderList from '../Folders/FolderList/FolderList';
-import Button from '../Button/Button';
 import './Sidebar.css';
 
-export default function Sidebar( props ) {
-    return (
-        <>
-            <Switch>
-                <Route
-                    path='/note/'
-                    render={ ({ routeProps }) => {
-                        return (
+class Sidebar extends Component {
+    
+    static defaultProps = {
+        history: {
+          goBack: () => { }
+        }
+    }
+    
+    render() {
+        return (
+            <>
+                <Switch>
+                    <Route
+                        path='/note/'
+                        render={ ({ routeProps }) => {
+                            return (
                                 <div className="back_button_wrapper">
-                                    <Button 
-                                        destination=""
-                                        name="Go Back"
+                                        <button 
+                                        name="Back Button"
                                         className="back_button"
-                                        { ... routeProps } />
+                                        onClick={ () => this.props.history.goBack() }>
+                                        Go Back   
+                                    </button>
                                 </div>
                             );
-                        }
-                    }
-                >
-                </Route>
-                <Route 
-                    component={ FolderList }
-                />
-            </Switch>
-        </>
-    );
+                        }}
+                    >
+                    </Route>
+                    <Route 
+                        component={ FolderList }
+                    />
+                </Switch>
+            </>
+        );
+    }
 }
+export default withRouter(Sidebar);

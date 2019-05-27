@@ -14,13 +14,14 @@ export default class App extends Component {
     folders: sampleData.folders,
   }
 
-  handleDeleteNote = ( noteId ) => {
+  deleteNote = ( noteId ) => {
+    console.log('delete note ', noteId);
     this.setState({
       notes: this.state.notes.filter(note => note.id !== noteId)
     });
   }
 
-  handleAddNote = ( note ) => {
+  addNote = ( note ) => {
     this.setState({
       notes: [
         ...this.state.notes, 
@@ -29,7 +30,7 @@ export default class App extends Component {
     });
   }
 
-  handleAddFolder = ( folder ) => {
+  addFolder = ( folder ) => {
     this.setState({
       notes: [
         ...this.state.folders, 
@@ -38,36 +39,36 @@ export default class App extends Component {
     });
   }
 
-  // componentDidMount() {
-  //   Promise.all([
-  //     fetch(`${config.API_ENDPOINT}/notes`),
-  //     fetch(`${config.API_ENDPOINT}/folders`)
-  //   ])
-  //   .then(([notesRes, foldersRes]) => {
-  //     if (!notesRes.ok)
-  //       return notesRes.json().then(event => Promise.reject(event))
-  //     if (!foldersRes.ok)
-  //       return foldersRes.json().then(event => Promise.reject(event))
-  //       return Promise.all([
-  //         notesRes.json(),
-  //         foldersRes.json(),
-  //       ])
-  //     })
-  //     .then(([notes, folders]) => {
-  //       this.setState({ notes, folders })
-  //     })
-  //     .catch(error => {
-  //       console.error({ error })
-  //     });
-  // }
+  componentDidMount() {
+    Promise.all([
+      fetch(`${config.API_ENDPOINT}/notes`),
+      fetch(`${config.API_ENDPOINT}/folders`)
+    ])
+    .then(([notesRes, foldersRes]) => {
+      if (!notesRes.ok)
+        return notesRes.json().then(badNotesResponse => Promise.reject(badNotesResponse));
+      if (!foldersRes.ok)
+        return foldersRes.json().then(badFoldersResponse => Promise.reject(badFoldersResponse));
+        return Promise.all([
+          notesRes.json(),
+          foldersRes.json(),
+        ]);
+      })
+      .then(([notes, folders]) => {
+        this.setState({ notes, folders });
+      })
+      .catch(error => {
+        console.error({ error });
+      });
+  }
 
   render() {
     const contextValue = {
       notes: this.state.notes, 
       folders: this.state.folders,
-      handleDeleteNote: this.handleDeleteNote, 
-      handleAddNote: this.handleAddNote, 
-      handleAddFolder: this.handleAddFolder,
+      handleDeleteNote: this.deleteNote, 
+      handleAddNote: this.addNote, 
+      handleAddFolder: this.addFolder,
     };
 
     return (

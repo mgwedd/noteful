@@ -3,29 +3,54 @@ import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { findNote } from '../../helper-functions';
 import { NotefulContext } from '../../NotefulContext';
-import Button from '../../Button/Button';
-import './Note.css'
+import config from '../../config';
+import './Note.css';
 
 export default class Note extends Component {
         
     // In case there's no folder selected, to avoid undef error when destructuring it for the note pull.
     static defaultProps = {
         match: {
-            params: {}
+            params: {},  
+            onDeleteNote: () => {},
         }
     }
+    
+    static contextType = NotefulContext;
+    
+    handleClickDelete = deleteEvent => {
+        deleteEvent.preventDefault()
+        const { noteId } = this.props;
+
+        fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
+            method: 'DELETE',
+            headers: {
+            'content-type': 'application/json'
+            },
+        })
+        .then(response => {
+            if (!response.ok)
+                return response.json().then(badResponse => Promise.reject(badResponse));
+            return response.json();
+        })
+        .then(() => {
+            this.context.deleteNote(noteId);
+        })
+        .catch(error => {
+            console.error({ error });
+        })
+    }
+
     static contextType = NotefulContext;
 
     render(){
         const { note, match } = this.props;
-        const { notes } = this.context;
-        // uuid because buttons aren't generated with easy access to an index key
-        const uuidv1 = require('uuid/v1'); 
+        const { notes, handleDeleteNote } = this.context;
         // in case this component was called from Main without NoteList, for an individual note, 
         // get a note matching the route path of the note (the noteId, which is equal to note.id)
         let noteToRender;
         if ( !note ) {
-            noteToRender = findNote(notes, match.params.noteId);
+            noteToRender = findNote( notes, match.params.noteId );
         } else {
             noteToRender = note;
         }
@@ -43,13 +68,12 @@ export default class Note extends Component {
                     </span>
                 </div>
                 <div className="note_delete-button-wrapper">
-                    <Button 
+                    <button 
                         name="Delete Note"
-                        destination="destination="
                         className="delete_note_button"
-                        key={ uuidv1() }>
-                        Delete
-                    </Button>
+                        onClick={ handleDeleteNote }>
+                        Delete Note
+                    </button>
                 </div>
             </li>
         );
