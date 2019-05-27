@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Header from './Header/Header';
 import SidebarWithContext from './Sidebar/Sidebar';
 import Main from './Main/Main';
-import sampleData from './sampleData';
 import { NotefulContext } from './NotefulContext';
 import config from './config';
 import './App.css';
@@ -10,8 +9,8 @@ import './App.css';
 export default class App extends Component {
 
   state = {
-    notes: sampleData.notes,
-    folders: sampleData.folders,
+    notes: [],
+    folders: []
   }
 
   deleteNote = ( noteId ) => {
@@ -66,9 +65,9 @@ export default class App extends Component {
     const contextValue = {
       notes: this.state.notes, 
       folders: this.state.folders,
-      handleDeleteNote: this.deleteNote, 
-      handleAddNote: this.addNote, 
-      handleAddFolder: this.addFolder,
+      deleteNote: this.deleteNote, 
+      addNote: this.addNote, 
+      addFolder: this.addFolder,
     };
 
     return (

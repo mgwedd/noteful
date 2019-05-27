@@ -1,28 +1,35 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { format } from 'date-fns';
 import { findNote } from '../../helper-functions';
 import { NotefulContext } from '../../NotefulContext';
 import config from '../../config';
 import './Note.css';
 
-export default class Note extends Component {
+class Note extends Component {
         
     // In case there's no folder selected, to avoid undef error when destructuring it for the note pull.
     static defaultProps = {
         match: {
             params: {},  
-            onDeleteNote: () => {},
         }
     }
     
     static contextType = NotefulContext;
     
-    handleClickDelete = deleteEvent => {
-        deleteEvent.preventDefault()
-        const { noteId } = this.props;
-
-        fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
+    handleDeleteNoteClick = ( deleteEvent ) => {
+        deleteEvent.preventDefault();
+        let noteId;
+        if ( !this.props.match.params.noteId ) {
+            noteId = this.props.noteId;
+        }
+        else {
+            noteId = this.props.match.params.noteId
+        }
+        // const { noteId } = !this.props.match.params ? this.props: this.props.match.params; ALT, would need work.
+        const { history } = this.props;
+        const { deleteNote } = this.context;
+        fetch(`${ config.API_ENDPOINT }/notes/${ noteId }`, {
             method: 'DELETE',
             headers: {
             'content-type': 'application/json'
@@ -34,18 +41,17 @@ export default class Note extends Component {
             return response.json();
         })
         .then(() => {
-            this.context.deleteNote(noteId);
+            history.push('/');
+            deleteNote( noteId );
         })
         .catch(error => {
             console.error({ error });
         })
     }
 
-    static contextType = NotefulContext;
-
     render(){
         const { note, match } = this.props;
-        const { notes, handleDeleteNote } = this.context;
+        const { notes } = this.context;
         // in case this component was called from Main without NoteList, for an individual note, 
         // get a note matching the route path of the note (the noteId, which is equal to note.id)
         let noteToRender;
@@ -71,7 +77,7 @@ export default class Note extends Component {
                     <button 
                         name="Delete Note"
                         className="delete_note_button"
-                        onClick={ handleDeleteNote }>
+                        onClick={ event => this.handleDeleteNoteClick( event ) }>
                         Delete Note
                     </button>
                 </div>
@@ -87,10 +93,12 @@ export default class Note extends Component {
                 <>
                     <div className="note_content_container">
                         { standardNote }
-                    <p className="note_content">{ noteToRender.content }</p>  
+                        <p className="note_content">{ noteToRender.content }</p>  
                     </div>
                 </>
             );  
         }
     }
 }
+
+export default withRouter(Note);
