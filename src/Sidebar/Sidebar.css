@@ -1,3 +1,4 @@
+/*  BACK BUTTON */
 .back_button_wrapper {
     padding: 10px;
 }
@@ -6,7 +7,6 @@
     display: flex;
     justify-content: center;
     text-align: center;
-    cursor: pointer;
     font-weight: bold;
     font-size: 20px;
     border: 2px solid black;
@@ -19,16 +19,31 @@
 .back_button:hover {
     background-color: black;
     color: white;
+    cursor: pointer;
 }
 
-.folder_list {
+/* ADD FOLDER BUTTON */
+
+.add_folder_button {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    list-style-type: none;
-    list-style-position:inside;
-    padding: 10px;
+    border: 2px solid black;
+    margin: 5px;
+    margin-left: 15px;
+    margin-top: 50px;
+    padding: 20px;
+    width: 190px;
+    font-size: 22px;
+    font-weight: bold;
 }
+
+.selected, .selected:visited, .add_folder_button:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+/* FOLDER */
 
 .folder {
     display: flex;
@@ -41,13 +56,17 @@
     font-weight: bold;
 }
 
+.folder_list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    list-style-type: none;
+    list-style-position:inside;
+    padding: 10px;
+}
+
 .folder:hover {
     background-color: black;
     color: white;
-}
-
-/* This doen't work. a:visited turns all the other text white! fix this. */
-.selected .folder {
-    background-color: black;
-    color: white;
+    cursor: pointer;
 }
