@@ -4,7 +4,6 @@ import { format } from 'date-fns';
 import { findNote } from '../../helper-functions';
 import { NotefulContext } from '../../NotefulContext';
 import config from '../../config';
-import './Note.css';
 
 class Note extends Component {
         
@@ -26,7 +25,6 @@ class Note extends Component {
         else {
             noteId = this.props.match.params.noteId
         }
-        // const { noteId } = !this.props.match.params ? this.props: this.props.match.params; ALT, would need work.
         const { history } = this.props;
         const { deleteNote } = this.context;
         fetch(`${ config.API_ENDPOINT }/notes/${ noteId }`, {
