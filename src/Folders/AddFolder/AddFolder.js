@@ -51,7 +51,7 @@ export default class AddFolder extends Component {
     render() {
         return (
             <>
-                <div className="form_wrapper folder">
+                <div className="form_wrapper_folder">
                     <form 
                         className="add_form"
                         onSubmit={submitEvent => this.handleFormSubmission( submitEvent )}>

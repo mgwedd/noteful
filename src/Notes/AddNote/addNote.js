@@ -14,9 +14,9 @@ import config from '../../config';
 export default class AddNote extends Component { 
 
     state = {
-        noteName: '', 
-        noteContent: '', 
-        noteFolder: null
+        name: '', 
+        content: '', 
+        folderId: ''
     }
         
     static defaultProps = {
@@ -27,64 +27,64 @@ export default class AddNote extends Component {
 
     static contextType = NotefulContext;
 
-    updateNoteName = ( keyInput ) => {
-        this.setState({noteName: keyInput})
+    updateNoteName = ( name ) => {
+        this.setState({ name })
     }
 
-    updateNoteContent = ( keyInput ) => {
-        this.setState({noteContent: keyInput})
+    updateNoteContent = ( content ) => {
+        this.setState({ content })
+    }
+
+    updateNoteFolder = ( folderId ) => {
+        this.setState({ folderId })
     }
 
     handleFormSubmission = ( submitEvent ) => {
         submitEvent.preventDefault();
-        // const note = {
-        //     noteTitle: submitEvent.target['noteTitle'].value, 
-        //     noteContent: submitEvent.target['noteContent'].value, 
-        //     noteFolder: submitEvent.target['noteFolder'].value
-        // }     
-        // console.log('submission received:  ', note);
-        // const { history } = this.props;
-        // fetch(`${config.API_ENDPOINT}/folders`, {
-        //     method: 'POST',
-        //     headers: {
-        //       'content-type': 'application/json'
-        //     },
-        //     body: JSON.stringify(note),
-        //   })
-        // .then(response => {
-        //     if (!response.ok)
-        //     return response.json().then(badFolderResponse => Promise.reject(badFolderResponse));
-        //     return response.json();
-        // })
-        // .then(folder => {
-        //     this.context.addFolder(folder);
-        //     history.push(`/folder/${folder.id}`);
-        // })
-        // .catch(error => {
-        //     console.error({ error })
-        // })
+        const { addNote } = this.context;
+        const { history } = this.props;
+        const note = { ...this.state, modified: new Date() }; 
+        
+        fetch(`${ config.API_ENDPOINT }/notes`, {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json'
+            },
+            body: JSON.stringify( note ),
+          })
+        .then(response => {
+            if (!response.ok)
+            return response.json().then(badNoteResponse => Promise.reject( badNoteResponse ));
+            return response.json();
+        })
+        .then(note => {
+            addNote( note );
+            history.push(`/note/${ note.id }`);
+        })
+        .catch(error => {
+            console.error({ error })
+        })
     }
 
     render() {
         return (
             <>
-                {/* <div className="form_wrapper note"> */}
-                <div className="custom-select">
+                <div className="form_wrapper_note">
                     <form 
                         className="add_form"
                         onSubmit={submitEvent => this.handleFormSubmission( submitEvent )}>
                         <legend><h2 className="form_legend">Add Note</h2></legend>
                         <div className="input_group_wrapper">
-                            <label htmlFor="noteName" className="input_label">Name Your Note:</label>
+                            <label htmlFor="noteName" className="input_label">Note Title:</label>
                             <input 
                                 type="text" 
                                 name="noteName" 
-                                className="name_input"
+                                className="name_input_note"
                                 placeholder="Tuesday Thoughts"
                                 onChange={ keyInput => this.updateNoteName( keyInput.target.value ) }>
                             </input>
                         </div>
-                        <div className="input_group_wrapper">
+                        <div className="input_group_wrapper ">
                             <label htmlFor="noteContent" className="input_label">Your Note:</label>
                             <textarea 
                                 rows="5" 
@@ -95,9 +95,13 @@ export default class AddNote extends Component {
                                 onChange={ keyInput => this.updateNoteContent( keyInput.target.value ) }>
                             </textarea>
                         </div>
-                        <div className="input_group_wrapper">
-                            <label htmlFor="folder" className="input_label">Folder:</label>
-                            <select name="folders" className="folder_input">
+                        <div className="input_group_select_wrapper">
+                            <label htmlFor="noteFolder" className="folder_input_label">Folder:</label>
+                            <select 
+                                name="noteFolder" 
+                                className="folder_input"
+                                onChange={ selectEvent => this.updateNoteFolder( selectEvent.target.value ) }>
+                                <option defaultValue="" disabled selected>Choose Folder</option>
                                 { this.context.folders.map(( folder ) => <option value={ folder.id }>{ folder.name }</option> ) }
                             </select>
                         </div>

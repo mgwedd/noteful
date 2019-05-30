@@ -34,6 +34,7 @@ ul {
 .note_content_container {
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
 }
 
 .note_content {
@@ -67,7 +68,6 @@ ul {
 }
 
 /* ADD NOTE BUTTON */
-
 .add_note_button {
   display: flex;
   justify-content: center;
@@ -89,13 +89,16 @@ ul {
 }
 
 /* ADD FOLDER AND NOTE FORM STYLES */
-
-.form_wrapper .note {
+.form_wrapper_note, .form_wrapper_folder  {
   margin: 0 auto;
   margin-top: 15px;
   border: 2px solid black;
   width: 555px;
   height: 325px;
+}
+
+.form_wrapper_note {
+  height: 475px;
 }
 
 .add_form {
@@ -119,12 +122,17 @@ ul {
   font-size: 18px;
 }
 
-.name_input {
+
+.name_input_note, .name_input_folder {
   height: 25px;
   width: 200px;
   padding: 10px;
   font-size: 16px;
-  color: rgb(216, 189, 189);
+  color: black;
+}
+
+.name_input_note {
+  width: 370px;
 }
 
 .content_input {
@@ -133,8 +141,22 @@ ul {
   margin-top: 20px;
 }
 
+.folder_input_label {
+  margin-right: 40px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.input_group_select_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .folder_input {
   margin-top: 20px;
+  width: 390px;
+  height: 30px;
 }
 
 ::placeholder {
