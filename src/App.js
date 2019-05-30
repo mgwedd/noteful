@@ -30,7 +30,7 @@ export default class App extends Component {
 
   addFolder = ( folder ) => {
     this.setState({
-      notes: [
+      folders: [
         ...this.state.folders, 
         folder
       ]

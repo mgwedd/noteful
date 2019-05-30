@@ -7,6 +7,7 @@ ul {
   list-style-position:inside;
 }
 
+/* NOTE */
 .note_container_li {
   list-style: none;
   display: flex;
@@ -15,6 +16,10 @@ ul {
   margin: 15px;
   margin-right: 10px;
   border: 2px solid black;
+}
+
+.note_container_li:hover {
+  box-shadow: -8px -8px 0px 0px black;
 }
 
 .note_title-and-date-wrapper {
@@ -35,6 +40,13 @@ ul {
   padding: 25px;
 }
 
+.note_title:hover {
+  background-color: black;
+  color: white;
+}
+
+
+/*  DELETE NOTE BUTTON */
 .note_delete-button-wrapper {
   display: flex;
   align-items: flex-end;
@@ -50,16 +62,70 @@ ul {
   cursor: pointer;
 }
 
-/*  HOVER STATES */
-.note_container_li:hover {
-  box-shadow: -8px -8px 0px 0px black;
-}
-.note_title:hover {
+.delete_note_button:hover {
   background-color: black;
   color: white;
 }
 
-.delete_note_button:hover {
+/* ADD FOLDER FORM STYLES */
+
+.form_wrapper {
+  margin: 0 auto;
+  margin-top: 15px;
+  border: 2px solid black;
+}
+
+.add_folder_form {
+  display: flex;
+  flex-direction: column;
+  width: 555px;
+}
+
+.form_legend {
+  font-size: 40px;
+  text-align: center;
+  font-weight: normal;
+}
+
+.input_group_wrapper {
+  margin-left: 35px;
+}
+
+.input_label {
+  font-weight: bold;
+  padding-right: 10px;
+  font-size: 18px;
+}
+
+.folder_name_input {
+  height: 30px;
+  width: 200px;
+  padding: 15px;
+  font-size: 18px;
+  color: black;
+}
+
+::placeholder {
+  color: gray;
+}
+
+.form_button_wrapper {
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.form_button {
+  border: 2px solid black;
+  margin: 10px;
+  width: 175px;
+  height: 50px;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.form_button:hover {
   background-color: black;
   color: white;
+  cursor: pointer;
 }
