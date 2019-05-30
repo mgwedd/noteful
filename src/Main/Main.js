@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import NoteList from '../Notes/NoteList/NoteList';
 import Note from '../Notes/Note/Note';
 import AddFolder from '../Folders/AddFolder/AddFolder';
+import AddNote from '../Notes/AddNote/AddNote';
 import './Main.css';
 
 export default function Main( props ) {
@@ -20,6 +21,10 @@ export default function Main( props ) {
                 <Route
                     path='/add-folder'
                     component={ AddFolder }>
+                </Route>
+                <Route
+                    path='/add-note'
+                    component={ AddNote }>
                 </Route>
                 <Route
                     path='/'

@@ -45,7 +45,6 @@ ul {
   color: white;
 }
 
-
 /*  DELETE NOTE BUTTON */
 .note_delete-button-wrapper {
   display: flex;
@@ -67,18 +66,41 @@ ul {
   color: white;
 }
 
-/* ADD FOLDER FORM STYLES */
+/* ADD NOTE BUTTON */
 
-.form_wrapper {
+.add_note_button {
+  display: flex;
+  justify-content: center;
+  border: 2px solid black;
+  margin: 5px;
+  margin-left: 15px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  padding: 20px;
+  width: 190px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.selected, .selected:visited, .add_note_button:hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+/* ADD FOLDER AND NOTE FORM STYLES */
+
+.form_wrapper .note {
   margin: 0 auto;
   margin-top: 15px;
   border: 2px solid black;
+  width: 555px;
+  height: 325px;
 }
 
-.add_folder_form {
+.add_form {
   display: flex;
   flex-direction: column;
-  width: 555px;
 }
 
 .form_legend {
@@ -97,12 +119,22 @@ ul {
   font-size: 18px;
 }
 
-.folder_name_input {
-  height: 30px;
+.name_input {
+  height: 25px;
   width: 200px;
-  padding: 15px;
-  font-size: 18px;
-  color: black;
+  padding: 10px;
+  font-size: 16px;
+  color: rgb(216, 189, 189);
+}
+
+.content_input {
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.folder_input {
+  margin-top: 20px;
 }
 
 ::placeholder {
@@ -129,3 +161,4 @@ ul {
   color: white;
   cursor: pointer;
 }
+

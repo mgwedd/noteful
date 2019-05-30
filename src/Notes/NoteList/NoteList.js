@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import Note from '../Note/Note';
 import { NotefulContext } from '../../NotefulContext';
 import { getNotesForFolder } from '../../helper-functions';
@@ -27,6 +28,12 @@ export default class NoteList extends Component {
             <>
                 <ul>
                     { notesList }
+                    <NavLink 
+                        to="/add-note"
+                        className="add_note_button"
+                        activeClassName="selected">
+                        Add Note   
+                    </NavLink>
                 </ul>
             </>
         );
