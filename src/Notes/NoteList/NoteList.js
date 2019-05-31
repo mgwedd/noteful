@@ -28,12 +28,14 @@ export default class NoteList extends Component {
             <>
                 <ul>
                     { notesList }
-                    <NavLink 
-                        to="/add-note"
-                        className="add_note_button"
-                        activeClassName="selected">
-                        Add Note   
-                    </NavLink>
+                    <li key="add_note_button_li">
+                        <NavLink 
+                            to="/add-note"
+                            className="add_note_button"
+                            activeClassName="selected">
+                            Add Note   
+                        </NavLink>
+                    </li>
                 </ul>
             </>
         );

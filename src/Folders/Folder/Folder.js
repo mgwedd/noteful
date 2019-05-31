@@ -6,12 +6,14 @@ export default function Folder( props ) {
     const { folder } = props;
     return (
         <>
-            <NavLink 
-                to={ `/folder/${ folder.id }`}
-                className="folder"
-                activeClassName="selected">
-                { folder.name }
-            </NavLink>
+            <li key={ folder.id }>
+                <NavLink 
+                    to={ `/folder/${ folder.id }`}
+                    className="folder"
+                    activeClassName="selected">
+                    { folder.name }
+                </NavLink>
+            </li>
         </>
     );
 }
