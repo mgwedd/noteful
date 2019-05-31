@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { format } from 'date-fns';
+import PropTypes from 'prop-types';
 import { findNote } from '../../helper-functions';
 import { NotefulContext } from '../../NotefulContext';
 import config from '../../config';
 
 class Note extends Component {
-        
+    
     // In case there's no folder selected, to avoid undef error when destructuring it for the note pull.
     static defaultProps = {
         match: {
@@ -18,15 +19,15 @@ class Note extends Component {
     
     handleDeleteNoteClick = ( deleteEvent ) => {
         deleteEvent.preventDefault();
+        const { history } = this.props;
+        const { deleteNote } = this.context;
         let noteId;
         if ( !this.props.match.params.noteId ) {
             noteId = this.props.noteId;
         }
         else {
-            noteId = this.props.match.params.noteId
+            noteId = this.props.match.params.noteId;
         }
-        const { history } = this.props;
-        const { deleteNote } = this.context;
         fetch(`${ config.API_ENDPOINT }/notes/${ noteId }`, {
             method: 'DELETE',
             headers: {
@@ -35,7 +36,7 @@ class Note extends Component {
         })
         .then(response => {
             if (!response.ok)
-                return response.json().then(badResponse => Promise.reject(badResponse));
+                return response.json().then(badNotesResponse => Promise.reject(badNotesResponse));
             return response.json();
         })
         .then(() => {
@@ -98,5 +99,11 @@ class Note extends Component {
         }
     }
 }
+
+// These props are not required because there are two ways to instantiate a note; each takes a different prop.
+Note.propTypes = {
+    note: PropTypes.object, 
+    noteId: PropTypes.string
+};
 
 export default withRouter(Note);

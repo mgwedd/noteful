@@ -39,4 +39,5 @@ class Sidebar extends Component {
         );
     }
 }
+
 export default withRouter(Sidebar);

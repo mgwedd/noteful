@@ -25,7 +25,6 @@ export default class AddFolder extends Component {
         const folder = {
             name: submitEvent.target['folderName'].value
         }     
-        console.log('submission received:  ', folder);
         const { history } = this.props;
         fetch(`${config.API_ENDPOINT}/folders`, {
             method: 'POST',
@@ -61,7 +60,7 @@ export default class AddFolder extends Component {
                             <input 
                                 type="text" 
                                 name="folderName" 
-                                className="name_input"
+                                className="name_input_folder"
                                 placeholder="Dreams"
                                 onChange={ keyInput => this.updateFolderName( keyInput.target.value ) }>
                             </input>

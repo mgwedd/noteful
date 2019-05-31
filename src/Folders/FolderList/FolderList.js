@@ -19,12 +19,12 @@ export default class FolderList extends Component {
                 <ul className="folder_list">
                     { folderList }
                 </ul>
-                    <NavLink 
-                        to="/add-folder"
-                        className="add_folder_button"
-                        activeClassName="selected">
-                        Add Folder   
-                    </NavLink>
+                <NavLink 
+                    to="/add-folder"
+                    className="add_folder_button"
+                    activeClassName="selected">
+                    Add Folder   
+                </NavLink>
             </>
         );
     }

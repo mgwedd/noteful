@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import Header from './Header/Header';
-import SidebarWithContext from './Sidebar/Sidebar';
-import Main from './Main/Main';
 import { NotefulContext } from './NotefulContext';
+import NotefulErrorBoundary from './NotefulErrorBoundary';
+import Header from './Header/Header';
+import Sidebar from './Sidebar/Sidebar';
+import Main from './Main/Main';
 import config from './config';
 import './App.css';
 
@@ -75,10 +76,14 @@ export default class App extends Component {
         <NotefulContext.Provider value={ contextValue }>
           <div className="sidebar_and_main_container">
             <div className="sidebar_container">
-              <SidebarWithContext />
+            <NotefulErrorBoundary>
+              <Sidebar />
+            </NotefulErrorBoundary>
             </div>
             <div className="main_container">
+            <NotefulErrorBoundary>
               <Main />
+            </NotefulErrorBoundary>
             </div>
           </div>
         </NotefulContext.Provider>

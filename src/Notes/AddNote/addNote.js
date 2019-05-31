@@ -93,7 +93,7 @@ export default class AddNote extends Component {
                                 className="folder_input"
                                 onChange={ selectEvent => this.updateNoteFolder( selectEvent.target.value ) }>
                                 <option defaultValue="" disabled selected>Choose Folder</option>
-                                { this.context.folders.map(( folder ) => <option value={ folder.id }>{ folder.name }</option> ) }
+                                { this.context.folders.map(( folder, index ) => <option value={ folder.id } key={ index }>{ folder.name }</option> ) }
                             </select>
                         </div>
                         <div className="form_button_wrapper">
