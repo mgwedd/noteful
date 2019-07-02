@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import { NotefulContext } from '../../NotefulContext';
-import config from '../../config';
 
 export default class AddNote extends Component { 
 
     state = {
-        name: '', 
-        content: '', 
-        folderId: ''
+        name : '', 
+        content : '', 
+        folderid : ''
     }
         
     static defaultProps = {
         history: {
-          push: () => { }
+          push: () => {}
         },
     }   
 
@@ -26,35 +25,33 @@ export default class AddNote extends Component {
         this.setState({ content })
     }
 
-    updateNoteFolder = ( folderId ) => {
-        this.setState({ folderId })
+    updateNoteFolder = ( folderid ) => {
+        this.setState({ folderid })
+    } 
+
+    addNoteInterfaceHandler = async ( noteToAdd ) => {
+        const { addNote, createApiInterface } = this.context
+        const { history } = this.props
+        console.log('about to post new note >> ', noteToAdd)
+        this.addNoteInterface = createApiInterface({
+            method : 'POST', 
+            endpoint : 'note', 
+            body : noteToAdd
+        }) 
+
+        const addedNote = await this.addNoteInterface.goFetch()
+
+        // add the note to the main app's state
+        addNote( addedNote )
+
+        // navigate to the newly added note
+        history.push(`/note/${ addedNote.id }`)
     }
 
     handleFormSubmission = ( submitEvent ) => {
-        submitEvent.preventDefault();
-        const { addNote } = this.context;
-        const { history } = this.props;
-        const note = { ...this.state, modified: new Date() }; 
-        
-        fetch(`${ config.API_ENDPOINT }/notes`, {
-            method: 'POST',
-            headers: {
-              'content-type': 'application/json'
-            },
-            body: JSON.stringify( note ),
-          })
-        .then(response => {
-            if (!response.ok)
-            return response.json().then(badNoteResponse => Promise.reject( badNoteResponse ));
-            return response.json();
-        })
-        .then(note => {
-            addNote( note );
-            history.push(`/note/${ note.id }`);
-        })
-        .catch(error => {
-            console.error({ error })
-        })
+        submitEvent.preventDefault()
+        const noteToAdd = { ...this.state } // note's modified_date will be timestamped on the server
+        this.addNoteInterfaceHandler( noteToAdd )
     }
 
     render() {

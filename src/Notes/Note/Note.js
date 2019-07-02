@@ -4,6 +4,7 @@ import { format } from 'date-fns'
 import PropTypes from 'prop-types'
 import { findNote } from '../../helper-functions'
 import { NotefulContext } from '../../NotefulContext'
+const uuid = require('uuid/v4')
 
 class Note extends Component {
     
@@ -29,14 +30,14 @@ class Note extends Component {
             noteId = this.props.match.params.noteId
         }
         
-        this.ApiInterface = createApiInterface( {
+        this.deleteNoteInterface = createApiInterface( {
             method : 'DELETE', 
             endpoint: 'note', 
             resourceId : noteId
         } )
 
         // delete the note from the db
-        this.ApiInterface.goFetch()
+        this.deleteNoteInterface.goFetch()
 
         // delete the note from App's state
         deleteNote( noteId )
@@ -48,25 +49,23 @@ class Note extends Component {
     render(){
         const { note, match } = this.props
         const { notes } = this.context
-        console.log('this is the passed down notes before rendering a note', notes, 'and heres a single note from props, ', note)
+       
         // in case this component was called from Main without NoteList, for an individual note, 
         // get a note matching the route path of the note (the noteId, which is equal to note.id)
-        let noteToRender = 'DEFAULT NOTE TO RENDER VAL'
+        let noteToRender
 
         if ( !note ) {
             noteToRender = findNote( notes, match.params.noteId )
-            console.log('just used the findNote function and found: ', noteToRender)
         } else {
             noteToRender = note
         }
-
-        console.log('note to render below conditional', noteToRender)
 
         const standardNote = (
             <li className="note_container_li">
                 <div className="note_title-and-date-wrapper">
                     <Link
-                        to={ `/note/${ noteToRender.id }` }>
+                        to={ `/note/${ noteToRender.id }` }
+                        key={ uuid() }>
                         { <h2>{ noteToRender.name }</h2> }
                     </Link>
                     <span className="note_modified_date"> 
@@ -79,6 +78,7 @@ class Note extends Component {
                     <button 
                         name="Delete Note"
                         className="delete_note_button"
+                        key={ uuid() }
                         onClick={ event => this.handleDeleteNoteClick( event ) }>
                         Delete Note
                     </button>
@@ -106,7 +106,7 @@ class Note extends Component {
 // These props are not required because there are two ways to instantiate a note; each takes a different prop.
 Note.propTypes = {
     note: PropTypes.object, 
-    noteId: PropTypes.string
+    noteId: PropTypes.number
 };
 
 export default withRouter( Note )

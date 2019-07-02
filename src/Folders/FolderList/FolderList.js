@@ -1,19 +1,22 @@
-import React, { Component } from 'react';
-import Folder from '../Folder/Folder';
-import { NavLink } from 'react-router-dom';
-import { NotefulContext } from '../../NotefulContext';
+import React, { Component } from 'react'
+import Folder from '../Folder/Folder'
+import { NavLink } from 'react-router-dom'
+import { NotefulContext } from '../../NotefulContext'
+const uuid = require( 'uuid/v4' )
 
 export default class FolderList extends Component {
 
-    static contextType = NotefulContext;
+    static contextType = NotefulContext
 
     render () {
-        const { folders=['noFoldersFromContext'] } = this.context;
-        const folderList = folders.map(( folder, index ) => {
+        const { folders=['noFoldersFromContext'] } = this.context
+
+        const folderList = folders.map(( folder ) => {
             return <Folder 
-                        folder={ folder }
-                        key={ index } />
-        });
+                folder={ folder }
+                key={ uuid() } />
+        })
+
         return (
             <>
                 <ul className="folder_list">
@@ -26,6 +29,6 @@ export default class FolderList extends Component {
                     Add Folder   
                 </NavLink>
             </>
-        );
+        )
     }
 }

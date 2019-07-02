@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { NotefulContext } from '../../NotefulContext';
-import config from '../../config';
 
 export default class AddFolder extends Component { 
 
@@ -10,41 +9,42 @@ export default class AddFolder extends Component {
         
     static defaultProps = {
         history: {
-          push: () => { }
+          push: () => {}
         },
     }   
 
     static contextType = NotefulContext;
 
-    updateFolderName = ( keyInput ) => {
-        this.setState({folderName: keyInput})
-    }
+    updateFolderName = keyInput => this.setState( {folderName : keyInput} )
 
     handleFormSubmission = ( submitEvent ) => {
         submitEvent.preventDefault();
-        const folder = {
-            name: submitEvent.target['folderName'].value
-        }     
-        const { history } = this.props;
-        fetch(`${config.API_ENDPOINT}/folders`, {
-            method: 'POST',
-            headers: {
-              'content-type': 'application/json'
-            },
-            body: JSON.stringify(folder),
-          })
-        .then(response => {
-            if (!response.ok)
-            return response.json().then(badFolderResponse => Promise.reject(badFolderResponse));
-            return response.json();
-        })
-        .then(folder => {
-            this.context.addFolder(folder);
-            history.push(`/folder/${folder.id}`);
-        })
-        .catch(error => {
-            console.error({ error })
-        })
+        
+        const folderToAdd = {
+            name : submitEvent.target['folderName'].value
+        }    
+
+        this.handleAddFolderInterface( folderToAdd )
+
+    }
+
+    handleAddFolderInterface = async ( folderToAdd ) => {
+        const { addFolder, createApiInterface } = this.context
+        const { history } = this.props
+        
+        this.addFolderInterface = createApiInterface({
+            method : 'POST', 
+            endpoint : 'folder', 
+            body : folderToAdd
+        }) 
+
+        const addedFolder = await this.addFolderInterface.goFetch()
+
+        // add the folder to the main app's state
+        addFolder( addedFolder )
+
+        // navigate to the newly added folder
+        history.push(`/folder/${ addedFolder.id }`)
     }
 
     render() {
@@ -73,6 +73,6 @@ export default class AddFolder extends Component {
                     </form>
                 </div>
             </>
-        );
+        )
     }
 }
