@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { format } from 'date-fns';
-import PropTypes from 'prop-types';
-import { findNote } from '../../helper-functions';
-import { NotefulContext } from '../../NotefulContext';
-import config from '../../config';
+import React, { Component } from 'react'
+import { Link, withRouter } from 'react-router-dom'
+import { format } from 'date-fns'
+import PropTypes from 'prop-types'
+import { findNote } from '../../helper-functions'
+import { NotefulContext } from '../../NotefulContext'
 
 class Note extends Component {
     
@@ -15,50 +14,54 @@ class Note extends Component {
         }
     }
     
-    static contextType = NotefulContext;
+    static contextType = NotefulContext
     
-    handleDeleteNoteClick = ( deleteEvent ) => {
-        deleteEvent.preventDefault();
-        const { history } = this.props;
-        const { deleteNote } = this.context;
-        let noteId;
+    handleDeleteNoteClick = async ( deleteEvent ) => {
+        deleteEvent.preventDefault()
+        const { history } = this.props
+        const { createApiInterface, deleteNote } = this.context
+        
+        // we may be deleting from both the list and single note views, so handle both cases.
+        let noteId
         if ( !this.props.match.params.noteId ) {
-            noteId = this.props.noteId;
+            noteId = this.props.noteId
+        } else {
+            noteId = this.props.match.params.noteId
         }
-        else {
-            noteId = this.props.match.params.noteId;
-        }
-        fetch(`${ config.API_ENDPOINT }/notes/${ noteId }`, {
-            method: 'DELETE',
-            headers: {
-            'content-type': 'application/json'
-            },
-        })
-        .then(response => {
-            if (!response.ok)
-                return response.json().then(badNotesResponse => Promise.reject(badNotesResponse));
-            return response.json();
-        })
-        .then(() => {
-            history.push('/');
-            deleteNote( noteId );
-        })
-        .catch(error => {
-            console.error({ error });
-        })
+        
+        this.ApiInterface = createApiInterface( {
+            method : 'DELETE', 
+            endpoint: 'note', 
+            resourceId : noteId
+        } )
+
+        // delete the note from the db
+        this.ApiInterface.goFetch()
+
+        // delete the note from App's state
+        deleteNote( noteId )
+        
+        // take us home
+        history.push('/')
     }
 
     render(){
-        const { note, match } = this.props;
-        const { notes } = this.context;
+        const { note, match } = this.props
+        const { notes } = this.context
+        console.log('this is the passed down notes before rendering a note', notes, 'and heres a single note from props, ', note)
         // in case this component was called from Main without NoteList, for an individual note, 
         // get a note matching the route path of the note (the noteId, which is equal to note.id)
-        let noteToRender;
+        let noteToRender = 'DEFAULT NOTE TO RENDER VAL'
+
         if ( !note ) {
-            noteToRender = findNote( notes, match.params.noteId );
+            noteToRender = findNote( notes, match.params.noteId )
+            console.log('just used the findNote function and found: ', noteToRender)
         } else {
-            noteToRender = note;
+            noteToRender = note
         }
+
+        console.log('note to render below conditional', noteToRender)
+
         const standardNote = (
             <li className="note_container_li">
                 <div className="note_title-and-date-wrapper">
@@ -81,11 +84,11 @@ class Note extends Component {
                     </button>
                 </div>
             </li>
-        );
+        )
 
         // if the path isn't targeting a specific note, render a standard note overview; 
         if ( !match.params.noteId ) {
-            return [ standardNote ];
+            return [ standardNote ]
         // otherwise, render that overview with a note content box below it
         } else {     
             return (
@@ -95,7 +98,7 @@ class Note extends Component {
                         <p className="note_content">{ noteToRender.content }</p>  
                     </div>
                 </>
-            );  
+            )  
         }
     }
 }
@@ -106,4 +109,4 @@ Note.propTypes = {
     noteId: PropTypes.string
 };
 
-export default withRouter(Note);
+export default withRouter( Note )
