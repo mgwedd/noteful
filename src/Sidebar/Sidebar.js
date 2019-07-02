@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
-import FolderList from '../Folders/FolderList/FolderList';
-import './Sidebar.css';
+import React, { Component } from 'react'
+import { Route, Switch, withRouter } from 'react-router-dom'
+import FolderList from '../Folders/FolderList/FolderList'
+import './Sidebar.css'
 
 class Sidebar extends Component {
     
@@ -20,14 +20,14 @@ class Sidebar extends Component {
                         render={ ({ routeProps }) => {
                             return (
                                 <div className="back_button_wrapper">
-                                        <button 
+                                    <button 
                                         name="Back Button"
                                         className="back_button"
                                         onClick={ () => this.props.history.goBack() }>
                                         Go Back   
                                     </button>
                                 </div>
-                            );
+                            )
                         }}
                     >
                     </Route>

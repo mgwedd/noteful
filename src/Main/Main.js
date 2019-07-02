@@ -1,10 +1,10 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import NoteList from '../Notes/NoteList/NoteList';
-import Note from '../Notes/Note/Note';
-import AddFolder from '../Folders/AddFolder/AddFolder';
-import AddNote from '../Notes/AddNote/AddNote';
-import './Main.css';
+import React from 'react'
+import { Route, Switch } from 'react-router-dom'
+import NoteList from '../Notes/NoteList/NoteList'
+import Note from '../Notes/Note/Note'
+import AddFolder from '../Folders/AddFolder/AddFolder'
+import AddNote from '../Notes/AddNote/AddNote'
+import './Main.css'
 
 export default function Main( props ) {
     return (
@@ -32,5 +32,5 @@ export default function Main( props ) {
                 </Route>
             </Switch>
         </>
-    );
+    )
 }

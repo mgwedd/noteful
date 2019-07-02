@@ -32,7 +32,6 @@ export default class AddNote extends Component {
     addNoteInterfaceHandler = async ( noteToAdd ) => {
         const { addNote, createApiInterface } = this.context
         const { history } = this.props
-        console.log('about to post new note >> ', noteToAdd)
         this.addNoteInterface = createApiInterface({
             method : 'POST', 
             endpoint : 'note', 
