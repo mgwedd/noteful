@@ -67,22 +67,25 @@ ul {
   color: white;
 }
 
-/* ADD NOTE BUTTON */
-.add_note_button {
+/* ADD AND EDIT NOTE AND FOLDER BUTTONS */
+.add_note_button, .edit_folder_button {
   display: flex;
   justify-content: center;
   border: 2px solid black;
   margin: 5px;
-  margin-left: 15px;
-  margin-top: 50px;
-  margin-bottom: 100px;
   padding: 20px;
   width: 190px;
   font-size: 22px;
   font-weight: bold;
 }
+.add_note_edit_folder_container {
+  display: flex;
+  margin-left: 15px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
 
-.selected, .selected:visited, .add_note_button:hover {
+.selected, .selected:visited, .add_note_button:hover, .edit_folder_button:hover {
   background-color: black;
   color: white;
   cursor: pointer;

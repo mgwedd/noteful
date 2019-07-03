@@ -4,6 +4,7 @@ import NoteList from '../Notes/NoteList/NoteList'
 import Note from '../Notes/Note/Note'
 import AddFolder from '../Folders/AddFolder/AddFolder'
 import AddNote from '../Notes/AddNote/AddNote'
+import EditFolder from '../../src/Folders/EditFolder/EditFolder'
 import './Main.css'
 
 export default function Main( props ) {
@@ -25,6 +26,10 @@ export default function Main( props ) {
                 <Route
                     path='/add-note'
                     component={ AddNote }>
+                </Route>
+                <Route
+                    path='/edit-folder'
+                    component={ EditFolder }>
                 </Route>
                 <Route
                     path='/'

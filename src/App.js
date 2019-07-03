@@ -34,13 +34,22 @@ export default class App extends Component {
     })
   }
 
-  addFolder = ( folder ) => {
+  addFolder = ( folder, history = this.state.folders ) => {
     this.setState({
       folders: [
-        ...this.state.folders, 
+        ...history, 
         folder
       ]
     })
+  }
+
+  getFolderToEdit = ( folderId ) => {
+    return this.state.folders.find( folder => folder.id === parseInt( folderId ) ) || 'Not Found'
+  }
+
+  updateFolder = ( updatedFolder ) => {
+    const unchangedFolders = this.state.folders.filter( folder => folder.id !== updatedFolder.id)
+    this.addFolder(updatedFolder, unchangedFolders )
   }
 
   createApiInterface = options => new ApiInterface( options )
@@ -57,12 +66,14 @@ export default class App extends Component {
 
   render() {
     const contextValue = {
-      notes: this.state.notes, 
-      folders: this.state.folders,
-      deleteNote: this.deleteNote, 
-      addNote: this.addNote, 
-      addFolder: this.addFolder,
-      createApiInterface: this.createApiInterface
+      notes : this.state.notes, 
+      folders : this.state.folders,
+      deleteNote : this.deleteNote, 
+      addNote : this.addNote, 
+      addFolder : this.addFolder,
+      getFolderToEdit : this.getFolderToEdit,
+      updateFolder : this.updateFolder,
+      createApiInterface : this.createApiInterface
     }
 
     return (
