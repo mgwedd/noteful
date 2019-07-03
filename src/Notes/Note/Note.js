@@ -46,7 +46,11 @@ class Note extends Component {
         history.push('/')
     }
 
-    render(){
+    handleEditNoteClick = ( event ) => {
+        
+    }
+    
+    render() {
         const { note, match } = this.props
         const { notes } = this.context
        
@@ -59,6 +63,31 @@ class Note extends Component {
         } else {
             noteToRender = note
         }
+
+        const deleteNoteButton = (
+            <button 
+                name="Delete Note"
+                className="delete_note_button"
+                key={ uuid() }
+                onClick={ event => this.handleDeleteNoteClick( event ) }>
+                Delete Note
+            </button>
+        )
+        
+        const editNoteButton = (
+            <Link to={{
+                pathname: '/edit-note',
+                state: { noteToRender }
+            }}>
+                <button 
+                    name="Edit Note"
+                    className="edit_note_button"
+                    key={ uuid() }>
+                    Edit Note 
+                </button>
+            </Link>
+        )
+      
 
         const standardNote = (
             <li className="note_container_li">
@@ -74,14 +103,9 @@ class Note extends Component {
                         { format( noteToRender.modified, 'Do MMM YYYY') } 
                     </span>
                 </div>
-                <div className="note_delete-button-wrapper">
-                    <button 
-                        name="Delete Note"
-                        className="delete_note_button"
-                        key={ uuid() }
-                        onClick={ event => this.handleDeleteNoteClick( event ) }>
-                        Delete Note
-                    </button>
+                <div className="note_delete_edit_button-wrapper">
+                    { deleteNoteButton }
+                    { editNoteButton }
                 </div>
             </li>
         )

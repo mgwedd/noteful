@@ -19,19 +19,25 @@ export default class App extends Component {
     this.getAllFolders = this.createApiInterface({method:'GET', endpoint: 'folder'})
   }
 
+  
+  addNote = ( note, history = this.state.notes ) => {
+    this.setState({
+      notes: [
+        ...history, 
+        note
+      ]
+    })
+  }
+
+  updateNote = ( updatedNote ) => {
+    const unchangedNotes = this.state.notes.filter( note => note.id !== updatedNote.id)
+    this.addNote(updatedNote, unchangedNotes )
+  }
+
   deleteNote = ( noteId ) => {
     this.setState({
       notes: this.state.notes.filter(note => note.id !== noteId)
     });
-  }
-
-  addNote = ( note ) => {
-    this.setState({
-      notes: [
-        ...this.state.notes, 
-        note
-      ]
-    })
   }
 
   addFolder = ( folder, history = this.state.folders ) => {
@@ -68,8 +74,9 @@ export default class App extends Component {
     const contextValue = {
       notes : this.state.notes, 
       folders : this.state.folders,
-      deleteNote : this.deleteNote, 
       addNote : this.addNote, 
+      updateNote : this.updateNote,
+      deleteNote : this.deleteNote, 
       addFolder : this.addFolder,
       getFolderToEdit : this.getFolderToEdit,
       updateFolder : this.updateFolder,

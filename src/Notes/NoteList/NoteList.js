@@ -42,7 +42,9 @@ export default class NoteList extends Component {
         const { notes=['no notes from context in NoteList'] } = this.context
         const { notesForFolder, currentFolderId } = this.state
         const { folderId } = this.props.match.params
-
+        // TODO: Known bug. When you navigate to the home route from a folder drilldown, notelist still renders the folder drilldown rather than all notes
+        // so find a way to wipe it from state on the route change... can't do it in render obv. cause of infinity. 
+        
         let notesToRender = notes
         
         if ( notesForFolder.length ) {

@@ -47,8 +47,6 @@ export default class ApiInterface  {
         }
         return response.json()
       })
-      .then( resolvedResponse => {
-        return resolvedResponse
-      })
+      .then( responseObj => responseObj )
   }
 }

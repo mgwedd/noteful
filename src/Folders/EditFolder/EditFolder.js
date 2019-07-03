@@ -32,7 +32,6 @@ export default class EditFolder extends Component {
             name : submitEvent.target['folderName'].value
         }    
 
-        console.log('about to dispatch a PATCH with the updated folder: ', folderToUpdate)
         this.handleUpdateFolderInterface( folderToUpdate )
     }
 
@@ -49,7 +48,6 @@ export default class EditFolder extends Component {
         }) 
 
         const updatedFolder = await this.updateFolderInterface.goFetch()
-        console.log('just got back the updated folder from the api ', updatedFolder)
         // add the updated folder to the main app's state
         updateFolder( updatedFolder )
 

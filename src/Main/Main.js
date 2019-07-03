@@ -5,6 +5,7 @@ import Note from '../Notes/Note/Note'
 import AddFolder from '../Folders/AddFolder/AddFolder'
 import AddNote from '../Notes/AddNote/AddNote'
 import EditFolder from '../../src/Folders/EditFolder/EditFolder'
+import EditNote from '../../src/Notes/EditNote/EditNote'
 import './Main.css'
 
 export default function Main( props ) {
@@ -24,12 +25,16 @@ export default function Main( props ) {
                     component={ AddFolder }>
                 </Route>
                 <Route
+                    path='/edit-folder'
+                    component={ EditFolder }>
+                </Route>
+                <Route
                     path='/add-note'
                     component={ AddNote }>
                 </Route>
                 <Route
-                    path='/edit-folder'
-                    component={ EditFolder }>
+                    path='/edit-note'
+                    component={ EditNote }>
                 </Route>
                 <Route
                     path='/'
