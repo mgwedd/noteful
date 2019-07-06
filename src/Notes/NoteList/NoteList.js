@@ -22,6 +22,16 @@ export default class NoteList extends Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        // this logic wipes the folder-specific notes from state when you navigate away from a folder route. 
+        if (this.props.location !== prevProps.location) {
+            this.setState({
+                notesForFolder : [], 
+                currentFolderId : ''
+            })
+        }
+    }
+    
     getNotesForFolder = async ( folderId ) => {
 
         const { createApiInterface } = this.context
@@ -33,8 +43,7 @@ export default class NoteList extends Component {
         })
 
         const folderAndItsNotes = await this.getNotesForFolderInterface.goFetch()
-        const notesForFolder = folderAndItsNotes.notes
-
+        const notesForFolder = folderAndItsNotes.notes // { folder : {...}, notes : [...]}
         this.setState( { notesForFolder, currentFolderId : folderId } )
     }
 
@@ -42,8 +51,6 @@ export default class NoteList extends Component {
         const { notes=['no notes from context in NoteList'] } = this.context
         const { notesForFolder, currentFolderId } = this.state
         const { folderId } = this.props.match.params
-        // TODO: Known bug. When you navigate to the home route from a folder drilldown, notelist still renders the folder drilldown rather than all notes
-        // so find a way to wipe it from state on the route change... can't do it in render obv. cause of infinity. 
         
         let notesToRender = notes
         
