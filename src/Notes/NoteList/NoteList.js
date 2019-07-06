@@ -47,6 +47,29 @@ export default class NoteList extends Component {
         this.setState( { notesForFolder, currentFolderId : folderId } )
     }
 
+    onDeleteFolder  = async () => {
+        const { currentFolderId : folderId } = this.state
+        const { createApiInterface, deleteFolder } = this.context
+        const { history } = this.props
+
+        this.deleteFolderInterface = createApiInterface(
+            {
+                method : 'DELETE', 
+                endpoint : 'folder', 
+                resourceId : folderId
+            }
+        )
+
+        // delete folder from the db
+        await this.deleteFolderInterface.goFetch()
+
+        // delete folder from the apps state
+        deleteFolder( folderId )
+
+        // take us home.
+        history.push('/')
+    }
+
     render() {
         const { notes=['no notes from context in NoteList'] } = this.context
         const { notesForFolder, currentFolderId } = this.state
@@ -84,6 +107,14 @@ export default class NoteList extends Component {
             </NavLink>
         )
 
+        const deleteFolderButton = (
+            <button
+                className="delete_folder_button"
+                onClick={this.onDeleteFolder}>
+                Delete Folder
+            </button>  
+        )
+
         return (
             <>
                 <ul>
@@ -97,7 +128,7 @@ export default class NoteList extends Component {
                                 activeClassName="selected">
                                 Add Note   
                             </NavLink>
-                            {currentFolderId !== '' ? editFolderButton : null}
+                            { currentFolderId !== '' ? [editFolderButton, deleteFolderButton] : null}     
                         </div>
                     </li>
                 </ul>

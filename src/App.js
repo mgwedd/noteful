@@ -35,10 +35,9 @@ export default class App extends Component {
   }
 
   deleteNote = ( noteId ) => {
-    console.log('deleting note from state : ', noteId)
     this.setState({
       notes: this.state.notes.filter(note => note.id !== parseInt(noteId))
-    });
+    })
   }
 
   addFolder = ( folder, history = this.state.folders ) => {
@@ -57,6 +56,12 @@ export default class App extends Component {
   updateFolder = ( updatedFolder ) => {
     const unchangedFolders = this.state.folders.filter( folder => folder.id !== updatedFolder.id)
     this.addFolder(updatedFolder, unchangedFolders )
+  }
+
+  deleteFolder = ( folderId ) => {
+    this.setState({
+      folders: this.state.folders.filter( folder => folder.id !== parseInt( folderId ) )
+    })
   }
 
   createApiInterface = options => new ApiInterface( options )
@@ -81,6 +86,7 @@ export default class App extends Component {
       addFolder : this.addFolder,
       getFolderToEdit : this.getFolderToEdit,
       updateFolder : this.updateFolder,
+      deleteFolder : this.deleteFolder,
       createApiInterface : this.createApiInterface
     }
 

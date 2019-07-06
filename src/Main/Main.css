@@ -70,7 +70,7 @@ ul {
 }
 
 /* ADD AND EDIT NOTE AND FOLDER BUTTONS */
-.add_note_button, .edit_folder_button {
+.add_note_button, .edit_folder_button, .delete_folder_button {
   display: flex;
   justify-content: center;
   border: 2px solid black;
@@ -80,6 +80,9 @@ ul {
   font-size: 22px;
   font-weight: bold;
 }
+.delete_folder_button {
+  width: 234px;
+}
 .add_note_edit_folder_container {
   display: flex;
   margin-left: 15px;
@@ -87,7 +90,7 @@ ul {
   margin-bottom: 100px;
 }
 
-.selected, .selected:visited, .add_note_button:hover, .edit_folder_button:hover {
+.selected, .selected:visited, .add_note_button:hover, .edit_folder_button:hover, .delete_folder_button:hover {
   background-color: black;
   color: white;
   cursor: pointer;
