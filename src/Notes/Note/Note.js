@@ -36,24 +36,14 @@ class Note extends Component {
             resourceId : noteId
         } )
 
-        // take us home before deleting the note if we're on a note drill-down view. 
-
-        // if (this.props.match.path === '/note/:noteId') {
-        //     deleteNote( noteId )
-        //     history.push('/')
-        // }
-       
-       
-        // delete the note from the db
-        const deleted = await this.deleteNoteInterface.goFetch()
-        console.log(deleted)
-
         // delete the note from App's state
         deleteNote( noteId )
-    
+        
+        // delete the note from the db.
+        await this.deleteNoteInterface.goFetch()
+        
         // take us home
         history.push('/')
-
     }
     
     render() {
@@ -99,14 +89,14 @@ class Note extends Component {
             <li className="note_container_li">
                 <div className="note_title-and-date-wrapper">
                     <Link
-                        to={ `/note/${ noteToRender.id }` }
+                        to={ `/note/${ noteToRender && noteToRender.id }` }
                         key={ uuid() }>
-                        { <h2>{ noteToRender.name }</h2> }
+                        { <h2>{ noteToRender && noteToRender.name }</h2> }
                     </Link>
                     <span className="note_modified_date"> 
                         Modified 
                         {' '}
-                        { format( noteToRender.modified, 'Do MMM YYYY') } 
+                        { noteToRender && format( noteToRender.modified, 'Do MMM YYYY') } 
                     </span>
                 </div>
                 <div className="note_delete_edit_button-wrapper">
@@ -125,7 +115,7 @@ class Note extends Component {
                 <>
                     <div className="note_content_container">
                         { standardNote }
-                        <p className="note_content">{ noteToRender.content }</p>  
+                        <p className="note_content">{ noteToRender && noteToRender.content }</p>  
                     </div>
                 </>
             )  

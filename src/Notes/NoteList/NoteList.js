@@ -51,9 +51,9 @@ export default class NoteList extends Component {
         const { notes=['no notes from context in NoteList'] } = this.context
         const { notesForFolder, currentFolderId } = this.state
         const { folderId } = this.props.match.params
-        
+
         let notesToRender = notes
-        
+
         if ( notesForFolder.length ) {
             notesToRender = notesForFolder
         } 
