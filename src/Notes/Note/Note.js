@@ -36,18 +36,24 @@ class Note extends Component {
             resourceId : noteId
         } )
 
+        // take us home before deleting the note if we're on a note drill-down view. 
+
+        // if (this.props.match.path === '/note/:noteId') {
+        //     deleteNote( noteId )
+        //     history.push('/')
+        // }
+       
+       
         // delete the note from the db
-        this.deleteNoteInterface.goFetch()
+        const deleted = await this.deleteNoteInterface.goFetch()
+        console.log(deleted)
 
         // delete the note from App's state
         deleteNote( noteId )
-        
+    
         // take us home
         history.push('/')
-    }
 
-    handleEditNoteClick = ( event ) => {
-        
     }
     
     render() {

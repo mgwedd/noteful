@@ -35,6 +35,7 @@ export default class App extends Component {
   }
 
   deleteNote = ( noteId ) => {
+    console.log('deleting note from state : ', noteId)
     this.setState({
       notes: this.state.notes.filter(note => note.id !== noteId)
     });
