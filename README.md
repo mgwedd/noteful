@@ -25,7 +25,7 @@ You'll either need to configure the Noteful API on your local machine, setting u
 
 To connect this react client to either of those API options, you'll need the following environment variables set on the `process.env` object in order for this client to be able to reach the API.
 
-* `REACT_APP_API_BASE=some_api_server_url_with_/api_postfix`
-* `REACT_APP_API_TOKEN=some_uuid_that_matches_the_server_configs_API_KEY`
+* `REACT_APP_API_BASE=some_url_with_/api_postfixs_erving_noteful_api`
+* `REACT_APP_API_TOKEN=some_uuid_that_matches_the_noteful_api_server_configs_API_KEY`
 
 Set those variables in an `env.local` file so that Zeit can pull them into the hosted client's environment during deployment. 
