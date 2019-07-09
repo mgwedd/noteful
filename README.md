@@ -11,11 +11,11 @@ Complete the following steps to get the project ready for further development.
 2. `git clone https://github.com/YOUR-USER-NAME/noteful && cd $_ && npm i && npm start`
 
 ## Scripts
-Start the app: `npm start`
-Build the app: `npm run build`
-Run all tests: `npm test`
-Deploy the app: `now`
-Eject the app: `npm eject`
+* Start the app: `npm start`
+* Build the app: `npm run build`
+* Run all tests: `npm test`
+* Deploy the app: `now`
+* Eject the app: `npm eject`
 
 Note: Deploying with `now` assumes you've set up [Zeit's now-cli](https://github.com/zeit/now-cli) and have configred the now.json file according to [their instructions](https://zeit.co/guides/deploying-react-with-now-cra)
 
