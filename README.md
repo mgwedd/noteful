@@ -1,4 +1,4 @@
-# noteful (it's for notetaking)
+# Noteful (it's for notetaking)
 
 This react app is the client of a full-stack CRUD project called "Noteful" — a final project for the Node & Postgres module of Thinkful's Full-Stack Flex program. It's written in React and Node (Express), with a Postgres database, which are hosted on Zeit and Heroku respectively. 
 
