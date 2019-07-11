@@ -70,3 +70,8 @@
     color: white;
     cursor: pointer;
 }
+
+.folderSelectButton {
+    background: transparent;
+    border: none;
+}

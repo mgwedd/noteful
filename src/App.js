@@ -19,7 +19,12 @@ export default class App extends Component {
     this.getAllFolders = this.createApiInterface({method:'GET', endpoint: 'folder'})
   }
 
+  componentDidMount() {
+    this.getAllData()
+  }
   
+  createApiInterface = options => new ApiInterface( options )
+
   addNote = ( note, history = this.state.notes ) => {
     this.setState({
       notes: [
@@ -64,19 +69,14 @@ export default class App extends Component {
     })
   }
 
-  createApiInterface = options => new ApiInterface( options )
-
   getAllData = async () => {
     const notes = await this.getAllNotes.goFetch()
     const folders = await this.getAllFolders.goFetch()
     this.setState( {notes, folders} )
   }
 
-  componentDidMount() {
-    this.getAllData()
-  }
-
   render() {
+
     const contextValue = {
       notes : this.state.notes, 
       folders : this.state.folders,
@@ -87,7 +87,8 @@ export default class App extends Component {
       getFolderToEdit : this.getFolderToEdit,
       updateFolder : this.updateFolder,
       deleteFolder : this.deleteFolder,
-      createApiInterface : this.createApiInterface
+      createApiInterface : this.createApiInterface, 
+      getAllData : this.getAllData
     }
 
     return (

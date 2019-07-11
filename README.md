@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# Noteful (it's for taking notes)
-=======
 # Noteful (it's for notetaking)
 
 This react app is the client of a full-stack CRUD project called "Noteful" — a final project for the Node & Postgres module of Thinkful's Full-Stack Flex program. It's written in React and Node (Express), with a Postgres database, which are hosted on Zeit and Heroku respectively. 
@@ -32,4 +29,3 @@ To connect this react client to either of those API options, you'll need the fol
 * `REACT_APP_API_TOKEN=some_uuid_that_matches_the_noteful_api_server_configs_API_KEY`
 
 Set those variables in an `env.local` file so that Zeit can pull them into the hosted client's environment during deployment. 
->>>>>>> 0c1cdfb782ea64a1fd7433fcc35d18977e7dbc03
