@@ -192,3 +192,30 @@ ul {
   cursor: pointer;
 }
 
+.folderHeaderWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.folderTitleBorder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  padding: 15px;
+  margin: 10px;
+  min-width: 225px;
+  min-height: 50px;
+  color: black;
+  font-size: 22px;
+  font-weight: bold;
+} 
+
+.folderTitle {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+ 

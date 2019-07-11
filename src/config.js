@@ -1,4 +1,4 @@
 export default {
-    API_BASE : 'http://localhost:8000/api', 
-    API_TOKEN : '1db06954-6279-447e-89aa-4dd7173ae4d4'
+    API_BASE : process.env.REACT_APP_API_BASE, 
+    API_TOKEN : process.env.REACT_APP_API_TOKEN
 }

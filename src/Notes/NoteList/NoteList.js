@@ -18,7 +18,9 @@ export default class NoteList extends Component {
         super( props )
         this.state = {
             notesForFolder : [], 
-            currentFolderId : ''
+            currentFolder : {},
+            currentFolderId : '', 
+            loading : false
         }
     }
 
@@ -27,9 +29,20 @@ export default class NoteList extends Component {
         if (this.props.location !== prevProps.location) {
             this.setState({
                 notesForFolder : [], 
-                currentFolderId : ''
+                currentFolder : {},
+                currentFolderId : '', 
+                noNotesFound : false,
+                loading : false 
             })
         }
+    }
+
+    loadNotes = ( folderId ) => {
+        this.setState( {
+            loading: true
+        })
+
+        this.getNotesForFolder( folderId )
     }
     
     getNotesForFolder = async ( folderId ) => {
@@ -42,9 +55,20 @@ export default class NoteList extends Component {
             resourceId : folderId
         })
 
-        const folderAndItsNotes = await this.getNotesForFolderInterface.goFetch()
-        const notesForFolder = folderAndItsNotes.notes // { folder : {...}, notes : [...]}
-        this.setState( { notesForFolder, currentFolderId : folderId } )
+        const folderAndItsNotes = await this.getNotesForFolderInterface.goFetch() // { folder : {...}, notes : [...]}
+        
+        let noNotesFound
+        if ( !folderAndItsNotes.notes.length ) {
+            noNotesFound = true
+        }
+
+        this.setState( { 
+            notesForFolder : folderAndItsNotes.notes,
+            currentFolder : folderAndItsNotes.folder,
+            currentFolderId : folderId, 
+            loading : false, 
+            noNotesFound
+        } )
     }
 
     onDeleteFolder  = async () => {
@@ -71,28 +95,56 @@ export default class NoteList extends Component {
     }
 
     render() {
-        const { notes=['no notes from context in NoteList'] } = this.context
-        const { notesForFolder, currentFolderId } = this.state
+        const { notes=['no notes'] } = this.context
+        const { notesForFolder, currentFolder, currentFolderId, loading, noNotesFound } = this.state
         const { folderId } = this.props.match.params
+        let notesToRender = []
 
-        let notesToRender = notes
-
-        if ( notesForFolder.length ) {
+        if ( !loading && notesForFolder.length ) {
+            // we have notes for the folder, so render them
             notesToRender = notesForFolder
         } 
         
-        if ( folderId && folderId !== currentFolderId ) {
-            // we need to get some notes for this folder, but in the meantime while fetching, render the whole list.
-            this.getNotesForFolder( folderId )
-            notesToRender = notes
+        if ( !loading && !notesForFolder.length && folderId ) {
+            // we need notes for this folder
+            this.loadNotes( folderId )
         } 
 
+        if ( !loading && !notesForFolder.length && !folderId) {
+            // render all notes for this route.
+            notesToRender = notes
+        }
+
+        let folderHeader = null
+        if ( currentFolder !== {} ) {
+            // we need a header for this folder: loading or the folder name
+
+            const headerMessage = () => {
+                if ( noNotesFound ) {
+                    return `No notes found in ${currentFolder.name}`
+                } else if ( loading ) {
+                    return 'Loading...'
+                } else {
+                    return currentFolder.name 
+                }
+            }
+            
+            folderHeader = (
+                <div className="folderHeaderWrapper" >
+                    <div className="folderTitleBorder">
+                        <h2 className="folderTitle">{headerMessage()}</h2>
+                    </div>
+                </div>
+            )
+        }
+
         const notesList = notesToRender.map( ( note ) => {
+            // give us the notes.
             return <Note 
                 note={ note }
                 key={ uuid() }
                 noteId={ note.id } />
-        })
+        } )
 
         const editFolderButton = (
             <NavLink 
@@ -117,6 +169,7 @@ export default class NoteList extends Component {
 
         return (
             <>
+                { folderId && folderHeader }
                 <ul>
                     { notesList }
                     <li key={ uuid() }>
