@@ -18,7 +18,7 @@ export default class NoteList extends Component {
             <>
                 <Switch>
                     <Route
-                        path={ 'folder/:folderId' }
+                        path={ '/folder/:folderId' }
                         render={ ( props ) => <NotesForFolder 
                             notes={notes} 
                             folders={folders}

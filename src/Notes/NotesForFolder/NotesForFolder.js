@@ -20,9 +20,10 @@ export default class NotesForFolder extends Component {
 
     constructor( props ) {
         super( props ) 
-        this.state({
-
-        })
+        this.state = {
+            currentFolder : null, 
+            noNotesFound : true
+        }
     }
 
     onDeleteFolder  = async () => {
@@ -50,21 +51,12 @@ export default class NotesForFolder extends Component {
 
     generateHeaderMessage = () => {
 
-        const { noNotesFound, currentFolder } = this.state
-
-        let message
-
-        if ( noNotesFound ) {
-            message = `No notes found in ${currentFolder.name}`
-        } else {
-            message = currentFolder.name 
-        }
-
+        const { currentFolder } = this.state
 
         return (
             <div className="folderHeaderWrapper">
                 <div className="folderTitleBorder">
-                    <h2 className="folderTitle">{message}</h2>
+                    <h2 className="folderTitle">{currentFolder && currentFolder.name }</h2>
                 </div>
             </div>
         )
@@ -109,16 +101,25 @@ export default class NotesForFolder extends Component {
 
     getNotesForFolder = () => {
 
-        const { currentFolder } = this.state
-        const { notes } = this.context
+        const { notes, folders } = this.context
 
+        const currentFolder = folders.find( folder => folder.id === parseInt( this.props.match.params.folderId ) )
+        console.log('currentFolder', currentFolder)
         const notesForFolder = notes.filter( note => note.folderid === currentFolder.id )
-
+        console.log('notes', notes, 'notesForFolder', notesForFolder)
+  
         if ( !notesForFolder.length ) {
             return <NoNotes />
         } 
 
-        return notes.map( ( note ) => {
+        if ( !this.state.currentFolder ) {
+            this.setState( {
+                noNotesFound : false, 
+                currentFolder
+            } )
+        }
+
+        return notesForFolder.map( ( note ) => {
             return <Note 
                 note={ note }
                 key={ uuid() }
@@ -127,6 +128,7 @@ export default class NotesForFolder extends Component {
     }
 
     render() { 
+        console.log('IN NOTES FOR FOLDER')
 
         const folderHeader = this.generateHeaderMessage()
 

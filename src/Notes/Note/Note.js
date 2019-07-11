@@ -86,7 +86,7 @@ class Note extends Component {
       
 
         const standardNote = (
-            <li className="note_container_li">
+            <li className="note_container_li" key={ uuid() }>
                 <div className="note_title-and-date-wrapper">
                     <Link
                         to={ `/note/${ noteToRender && noteToRender.id }` }
