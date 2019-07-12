@@ -217,5 +217,14 @@ ul {
   padding-right: 20px;
 }
 
+.folderButtonsHolder {
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+}
 
+.noNoteWrapper {
+  display: flex;
+  margin: auto;
+}
  

@@ -21,21 +21,21 @@ export default class NotesForFolder extends Component {
     constructor( props ) {
         super( props ) 
         this.state = {
-            currentFolder : null, 
+            currentFolder : '', 
+            folderId : '',
             noNotesFound : true
         }
     }
 
     onDeleteFolder  = async () => {
-        const { folderId } = this.state
+        const { currentFolder : { id } } = this.state
         const { createApiInterface, deleteFolder } = this.context
-        const { history } = this.props
 
         this.deleteFolderInterface = createApiInterface(
             {
                 method : 'DELETE', 
                 endpoint : 'folder', 
-                resourceId : folderId
+                resourceId : id
             }
         )
 
@@ -43,10 +43,7 @@ export default class NotesForFolder extends Component {
         await this.deleteFolderInterface.goFetch()
 
         // delete folder from the apps state
-        deleteFolder( folderId )
-
-        // take us home.
-        history.push('/')
+        deleteFolder( id )
     }
 
     generateHeaderMessage = () => {
@@ -56,7 +53,7 @@ export default class NotesForFolder extends Component {
         return (
             <div className="folderHeaderWrapper">
                 <div className="folderTitleBorder">
-                    <h2 className="folderTitle">{currentFolder && currentFolder.name }</h2>
+                    <h2 className="folderTitle">{currentFolder && currentFolder.name}</h2>
                 </div>
             </div>
         )
@@ -100,47 +97,45 @@ export default class NotesForFolder extends Component {
     }
 
     getNotesForFolder = () => {
-
         const { notes, folders } = this.context
+        const { folderId } = this.props.match.params
 
-        const currentFolder = folders.find( folder => folder.id === parseInt( this.props.match.params.folderId ) )
-        console.log('currentFolder', currentFolder)
+        const currentFolder = folders.find( folder => folder.id === parseInt( folderId ) )
         const notesForFolder = notes.filter( note => note.folderid === currentFolder.id )
-        console.log('notes', notes, 'notesForFolder', notesForFolder)
-  
-        if ( !notesForFolder.length ) {
-            return <NoNotes />
-        } 
 
-        if ( !this.state.currentFolder ) {
+        // if we just navigated to a new folder or we havent yet added the current folder to the state, then add both.
+        // essentially, set the components state to be in line with "the folder" we're in as the user moves around.
+        if ( this.props.match.params.folderId !== this.state.folderId || !this.state.currentFolder ) {
             this.setState( {
+                folderId : this.props.match.params.folderId, 
                 noNotesFound : false, 
                 currentFolder
             } )
         }
+
+        if ( !notesForFolder.length ) {
+            return <NoNotes />
+        } 
 
         return notesForFolder.map( ( note ) => {
             return <Note 
                 note={ note }
                 key={ uuid() }
                 noteId={ note.id } /> 
-            })
+            } )
     }
 
     render() { 
-        console.log('IN NOTES FOR FOLDER')
-
-        const folderHeader = this.generateHeaderMessage()
-
-        const folderButtons = this.generateFolderButtons()
 
         const notesForFolder = this.getNotesForFolder()
+        const folderHeader = this.generateHeaderMessage()
+        const folderButtons = this.generateFolderButtons()
 
         return (
             <>
                 {folderHeader}
                 {notesForFolder}
-                <div className="add_note_edit_delete_folder_container">
+                <div className="folderButtonsHolder">
                     { folderButtons }     
                 </div>
             </>
