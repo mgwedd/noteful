@@ -3,22 +3,23 @@ import { NotefulContext } from '../../NotefulContext';
 
 export default class EditFolder extends Component {
 
-    state = {
-        folderName : '', 
-        selectedFolder : {}, 
-    }
-        
+    
     static defaultProps = {
         history: {
-          push: () => {}
+            push: () => {}
         },
     }   
-
+    
     static contextType = NotefulContext
+    
+    state = {
+        folderName : '', 
+        currentFolder : {}, 
+    }
 
     componentDidMount() {
-        const { selectedFolder } = this.props.location.state
-        this.setState( { selectedFolder } )
+        const { currentFolder } = this.props.location.state
+        this.setState( { currentFolder } )
     }
 
     updateFolderName = keyInput => this.setState( {folderName : keyInput} )
@@ -35,13 +36,13 @@ export default class EditFolder extends Component {
 
     handleUpdateFolderInterface = async ( folderToUpdate ) => {
         const { updateFolder, createApiInterface } = this.context
-        const { selectedFolder } = this.state
+        const { currentFolder } = this.state
         const { history } = this.props
         
         this.updateFolderInterface = createApiInterface({
             method : 'PATCH', 
             endpoint : 'folder', 
-            resourceId : selectedFolder.id,
+            resourceId : currentFolder.id,
             body : folderToUpdate
         }) 
 
@@ -54,7 +55,7 @@ export default class EditFolder extends Component {
     }
 
     render() {
-        const { selectedFolder } = this.state
+        const { currentFolder } = this.state
 
         return (
             <>
@@ -69,7 +70,7 @@ export default class EditFolder extends Component {
                                 type="text" 
                                 name="folderName" 
                                 className="name_input_folder"
-                                defaultValue={selectedFolder && selectedFolder.name}
+                                defaultValue={currentFolder && currentFolder.name}
                                 onChange={ keyInput => this.updateFolderName( keyInput.target.value ) }>
                             </input>
                         </div>

@@ -28,22 +28,25 @@ export default class NotesForFolder extends Component {
     }
 
     onDeleteFolder  = async () => {
-        const { currentFolder : { id } } = this.state
+        const { currentFolder } = this.state
+        const { history } = this.props
         const { createApiInterface, deleteFolder } = this.context
 
         this.deleteFolderInterface = createApiInterface(
             {
                 method : 'DELETE', 
                 endpoint : 'folder', 
-                resourceId : id
+                resourceId : currentFolder.id
             }
         )
 
         // delete folder from the db
         await this.deleteFolderInterface.goFetch()
-
-        // delete folder from the apps state
-        deleteFolder( id )
+        
+        // take us home.
+        history.push( '/' )
+        window.scrollTo(0, 0)
+        deleteFolder( currentFolder.id )
     }
 
     generateHeaderMessage = () => {
@@ -105,7 +108,7 @@ export default class NotesForFolder extends Component {
 
         // if we just navigated to a new folder or we havent yet added the current folder to the state, then add both.
         // essentially, set the components state to be in line with "the folder" we're in as the user moves around.
-        if ( this.props.match.params.folderId !== this.state.folderId || !this.state.currentFolder ) {
+        if ( folderId !== this.state.folderId || !this.state.currentFolder ) {
             this.setState( {
                 folderId : this.props.match.params.folderId, 
                 noNotesFound : false, 

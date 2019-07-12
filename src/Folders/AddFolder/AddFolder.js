@@ -45,6 +45,7 @@ export default class AddFolder extends Component {
 
         // navigate to the newly added folder
         history.push(`/folder/${ addedFolder.id }`)
+        window.scrollTo(0, 0)
     }
 
     render() {

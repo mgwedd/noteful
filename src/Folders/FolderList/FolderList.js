@@ -24,6 +24,7 @@ export default class FolderList extends Component {
                 </ul>
                 <NavLink 
                     to="/add-folder"
+                    onUpdate={() => window.scrollTo(0, 0)}
                     className="add_folder_button"
                     activeClassName="selected">
                     Add Folder   

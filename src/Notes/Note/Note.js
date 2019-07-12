@@ -78,6 +78,7 @@ class Note extends Component {
                 <button 
                     name="Edit Note"
                     className="edit_note_button"
+                    onClick={ evt =>  window.scrollTo(30, 70)}
                     key={ uuid() }>
                     Edit Note 
                 </button>
